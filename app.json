@@ -1,0 +1,69 @@
+{
+    "id": "66415e14-1665-4394-af33-696ac64b85fe",
+    "name": "July15",
+    "publisher": "Default Publisher",
+    "version": "1.0.0.1",
+    "brief": "",
+    "description": "",
+    "privacyStatement": "",
+    "EULA": "",
+    "help": "",
+    "url": "",
+    "logo": "",
+    "dependencies": [
+        {
+            "id": "e7f012cb-e4e7-4770-b0de-289968f2c396",
+            "name": "July10",
+            "publisher": "Default Publisher",
+            "version": "1.0.0.0"
+        },
+        {
+            "id": "e1d97edc-c239-46b4-8d84-6368bdf67c8b",
+            "name": "E-Document Core",
+            "publisher": "Microsoft",
+            "version": "26.3.36158.36500"
+        },
+        {
+            "id": "e4e86220-cac0-4ec3-b853-7c2fa610399d",
+            "name": "PowerBI Reports",
+            "publisher": "Microsoft",
+            "version": "26.3.36158.36500"
+        },
+        {
+            "id": "3099ffc7-4cf7-4df6-9b96-7e4bc2bb587c",
+            "name": "Subscription Billing",
+            "publisher": "Microsoft",
+            "version": "26.3.36158.36500"
+        },
+        {
+            "id": "a01864f8-9c3f-42f6-8328-8d7be1ce3e20",
+            "name": "_Exclude_Master_Data_Management",
+            "publisher": "Microsoft",
+            "version": "26.3.36158.36500"
+        },
+        {
+            "id": "99dfb623-2893-4075-95e4-ac896ac5cf10",
+            "name": "ALjuly10",
+            "publisher": "Zynith IT Solutions",
+            "version": "1.0.0.0"
+        }
+    ],
+    "screenshots": [],
+    "platform": "15.0.0.1",
+    "application": "26.3.36158.36500",
+    "idRanges": [
+        {
+            "from": 50100,
+            "to": 50649
+        }
+    ],
+    "resourceExposurePolicy": {
+        "allowDebugging": true,
+        "allowDownloadingSource": true,
+        "includeSourceInSymbolFile": true
+    },
+    "runtime": "15.0",
+    "features": [
+        "NoImplicitWith"
+    ]
+}
