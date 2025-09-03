@@ -40,15 +40,15 @@ table 50169 AssetType
         AssetRec: Record Assets;
         EmpAssetRec: Record EmpAssets;
     begin
-        // Delete all related Assets
+        
         AssetRec.Reset();
         AssetRec.SetRange(AssetType, Rec.Name);
         if AssetRec.FindSet() then
             repeat
-                AssetRec.Delete(true); // this will cascade into EmpAssets delete via Assets.OnDelete
+                AssetRec.Delete(true); 
             until AssetRec.Next() = 0;
 
-        // Extra safeguard: delete orphan EmpAssets (if any)
+        
         EmpAssetRec.Reset();
         EmpAssetRec.SetRange(AssetType, Rec.Name);
         if EmpAssetRec.FindSet() then

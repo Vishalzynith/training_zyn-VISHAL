@@ -80,7 +80,7 @@ table 50170 Assets
                     Rec.Available := true;
             end;
         end else
-            Rec.Available := true; // never assigned yet, so available
+            Rec.Available := true; 
     end;
 
     trigger OnInsert()
@@ -97,14 +97,14 @@ table 50170 Assets
     var
         EmpAssetRec: Record EmpAssets;
     begin
-        // Check if there are assigned EmpAssets
+        
         EmpAssetRec.Reset();
         EmpAssetRec.SetRange(SerialNo, Rec.SerialNo);
         EmpAssetRec.SetRange(Status, EmpAssetRec.Status::Assigned);
         if EmpAssetRec.FindFirst() then
             Error('Cannot delete Asset %1 because it is currently assigned.', Rec.SerialNo);
 
-        // Delete related EmpAssets (returned/lost/others)
+        
         EmpAssetRec.Reset();
         EmpAssetRec.SetRange(SerialNo, Rec.SerialNo);
         if EmpAssetRec.FindSet() then
