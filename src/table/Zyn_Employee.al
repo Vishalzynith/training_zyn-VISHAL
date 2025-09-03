@@ -19,6 +19,13 @@ table 50276 "Employ Table"
         {
             DataClassification = ToBeClassified;
         }
+        field(50; "Assigned Asset Count"; Integer)
+        {
+            FieldClass = FlowField;
+            CalcFormula = count(EmpAssets where(EmpID = field("Emp Id."),
+                                        Status = const(Assigned)));
+        }
+
     }
     keys
     {
@@ -32,13 +39,13 @@ table 50276 "Employ Table"
         LeaveReq: Record "LeaveRequest";
         LeaveLog: Record "Employee Leave Log";
     begin
-        
+
         LeaveReq.Reset();
         LeaveReq.SetRange("Emp Id.", "Emp Id.");
         if LeaveReq.FindSet() then
             LeaveReq.DeleteAll();
 
-        
+
         LeaveLog.Reset();
         LeaveLog.SetRange("Emp Id.", "Emp Id.");
         if LeaveLog.FindSet() then

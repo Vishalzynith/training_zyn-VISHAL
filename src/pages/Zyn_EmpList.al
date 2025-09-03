@@ -6,8 +6,8 @@ page 50374 "Employee List page"
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = false;
-    CardPageId =  "Employee Card page";
- 
+    CardPageId = "Employee Card page";
+
     layout
     {
         area(content)
@@ -26,12 +26,22 @@ page 50374 "Employee List page"
                 {
                     ApplicationArea = All;
                 }
-               
+
                 field(role; Rec.role)
                 {
                     ApplicationArea = All;
+                }
             }
+
+        }
+        area(FactBoxes)
+        {
+            part(AssignedAssets; "Assigned Assets Factbox")
+            {
+                ApplicationArea = All;
+                SubPageLink = "Emp Id." = field("Emp Id.");
+            }
+
         }
     }
-}
 }
