@@ -15,6 +15,11 @@ pageextension 50122 MyExtension extends "Customer List"
                 SubPageLink = "No." = field("No.");
                 ApplicationArea = All;
             }
+            part(CustomerSubscriptions; "Customer Subscription FactBox")
+            {
+                ApplicationArea = All;
+                SubPageLink = CustomerID= FIELD("No."); 
+            }
             
         }
         

@@ -1,3 +1,4 @@
+//assessment lines 47-52
 tableextension 50139 SalesHeaderExt extends "Sales Header"
 {
     fields
@@ -41,6 +42,13 @@ tableextension 50139 SalesHeaderExt extends "Sales Header"
             FieldClass = FlowField;
             CalcFormula = Max("LastSoldPrice".PostingDate WHERE(CustomerNo = FIELD("Sell-to Customer No.")));
             Editable = false;
+        }
+
+        //Assessment Pointing out
+        field(50000; "Subscription ID"; Code[20])
+        {
+            Caption = 'Subscription ID';
+            DataClassification = CustomerContent;
         }
 
     }
