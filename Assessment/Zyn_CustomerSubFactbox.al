@@ -1,7 +1,7 @@
 page 50150 "Customer Subscription FactBox"
 {
     PageType = ListPart;
-    SourceTable = Subscription; // Your subscription table
+    SourceTable = Subscription; 
     Caption = 'Customer Subscriptions';
     ApplicationArea = All;
 
