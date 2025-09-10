@@ -1,3 +1,4 @@
+//Line 90-102 : Subscription Notification Task
 page 50213 "Zyn Subscription Cue Card"
 {
     PageType = CardPart;
@@ -40,7 +41,7 @@ page 50213 "Zyn Subscription Cue Card"
 
                         SalesHdr.SetRange("Document Type", SalesHdr."Document Type"::Invoice);
                         SalesHdr.SetRange("Document Date", StartDate, EndDate);
-                        SalesHdr.SetFilter("Subscription ID", '<>%1', ''); 
+                        SalesHdr.SetFilter("Subscription ID", '<>%1', '');
 
                         Page.Run(Page::"Sales Invoice List", SalesHdr);
                     end;
@@ -53,14 +54,16 @@ page 50213 "Zyn Subscription Cue Card"
         ActiveSubs: Integer;
         RevenueThisMonth: Decimal;
 
-    trigger OnOpenPage()
+    trigger OnAfterGetRecord()
     var
         SubRec: Record Subscription;
         SalesHdr: Record "Sales Header";
         StartDate: Date;
         EndDate: Date;
-        totalamnt:Decimal;
+        totalamnt: Decimal;
+
     begin
+        NotificationMgt.SendReminder(SubRec);
         SubRec.SetRange(Status, SubRec.Status::Active);
         ActiveSubs := SubRec.Count();
 
@@ -70,17 +73,34 @@ page 50213 "Zyn Subscription Cue Card"
         SalesHdr.SetRange("Document Type", SalesHdr."Document Type"::Invoice);
         SalesHdr.SetRange("Document Date", StartDate, EndDate);
         SalesHdr.SetFilter("Subscription ID", '<>%1', '');
-        totalamnt:=0;
+        totalamnt := 0;
         if SalesHdr.FindSet() then begin
             SalesHdr.CalcFields(Amount);
             repeat
 
-             totalamnt+=SalesHdr.Amount;
-            until SalesHdr.Next()=0
+                totalamnt += SalesHdr.Amount;
+            until SalesHdr.Next() = 0
         end;
 
-        
+
 
         RevenueThisMonth := totalamnt;
     end;
+//Subscription Notification Task
+    var
+        NotificationMgt: Codeunit Zyn_SubscriptionRenewal;
+        SubRec: Record Subscription;
+
+    trigger OnOpenPage()
+    var
+        SubRec: Record Subscription;
+    begin
+        SubRec.SetRange(Status, SubRec.Status::Active);
+        if SubRec.FindSet() then
+            repeat
+                NotificationMgt.SendReminder(SubRec);
+            until SubRec.Next() = 0;
+    end;
+
 }
+

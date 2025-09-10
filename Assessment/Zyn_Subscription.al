@@ -1,3 +1,4 @@
+//Lines 48-64: Addition of 2 fields as part of Subscription Notification Task
 table 50180 Subscription
 {
     DataClassification = ToBeClassified;
@@ -45,8 +46,23 @@ table 50180 Subscription
         field(5; EndDate; Date) { DataClassification = ToBeClassified; }
         field(6; Status; Enum SubEnum) { DataClassification = ToBeClassified; }
         field(7; NextBilling; Date) { DataClassification = ToBeClassified; }
+        field(9; "Next Renewal Date"; Date)
+        {
+            DataClassification = CustomerContent;
+            trigger OnValidate()
+            begin
+                if ("Next Renewal Date" <> 0D) and (EndDate <> 0D) then begin
+                    if "Next Renewal Date" <= EndDate then
+                        Error('Next Renewal Date (%1) must be after End Date (%2).', "Next Renewal Date", EndDate);
+                end;
+            end;
+        }
+        field(10; "Reminder Sent"; Boolean)
+        {
+            Caption = 'Reminder Sent';
+            DataClassification = CustomerContent;
+        }
     }
-
     keys
     {
         key(PK; SubID, PlanID)
@@ -54,7 +70,6 @@ table 50180 Subscription
             Clustered = true;
         }
     }
-
     trigger OnInsert()
     begin
         UpdateDates();
@@ -65,7 +80,6 @@ table 50180 Subscription
     begin
         UpdateStatus();
     end;
-
     local procedure UpdateDates()
     var
         Expr: Text[30];
@@ -73,7 +87,7 @@ table 50180 Subscription
         if (StartDate <> 0D) and (Duration > 0) then begin
             Expr := StrSubstNo('<+%1M>', Format(Duration));
             EndDate := System.CalcDate(Expr, StartDate);
-            
+
             if NextBilling = 0D then
                 NextBilling := System.CalcDate('<+1M>', StartDate);
         end;

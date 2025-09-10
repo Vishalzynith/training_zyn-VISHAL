@@ -1,3 +1,4 @@
+//Lines 26,27 : Subscription Notification Task
 page 50211 SubscriptionList
 {
     PageType = List;
@@ -22,6 +23,8 @@ page 50211 SubscriptionList
                 field(EndDate;Rec.EndDate){ApplicationArea=All;}
                 field(Status;Rec.Status){ApplicationArea=All;}
                 field(NextBilling;Rec.NextBilling){ApplicationArea=All;}
+                field("Next Renewal Date";Rec."Next Renewal Date"){ApplicationArea=All;}
+                field("Reminder Sent";Rec."Reminder Sent"){ApplicationArea=All;}
             }
         }
     }
