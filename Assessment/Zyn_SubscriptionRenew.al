@@ -31,7 +31,7 @@ codeunit 50161 Zyn_SubscriptionRenewal
         if Customer.Get(SubsRecord.CustomerID) then begin
             Notif.Id := CreateGuid();
             Notif.Message := StrSubstNo(
-                'Reminder: Subscription %1 for Customer %2 will expire on %3. Please renew!',
+                'Reminder: Subscription %1 for Customer %2 will expire on %3. Please renew!.',
                 SubsRecord.SubID,
                 Customer.Name,
                 Format(SubsRecord.EndDate));
