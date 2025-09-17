@@ -14,13 +14,21 @@ page 50218 Zyn_ExpenseClaimCard
                 {
                     ApplicationArea = All;
                 }
-                field(EmpID;Rec.EmpID)
+                field(EmpID; Rec.EmpID)
                 {
-                    ApplicationArea=All;
+                    ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(); // refreshing rem list
+                    end;
                 }
                 field(CategoryID; Rec.CategoryID)
                 {
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(); 
+                    end;
                 }
                 field(SubType; Rec.SubType)
                 {
@@ -29,8 +37,16 @@ page 50218 Zyn_ExpenseClaimCard
                 field(ClaimDate; Rec.ClaimDate)
                 {
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        CurrPage.Update(); 
+                    end;
                 }
                 field(BillDate; Rec.BillDate)
+                {
+                    ApplicationArea = All;
+                }
+                field(RemainingLimit; Rec.RemainingLimit)
                 {
                     ApplicationArea = All;
                 }
@@ -45,6 +61,7 @@ page 50218 Zyn_ExpenseClaimCard
                             if Rec.Amount > ExpCat.Limit then
                                 Error('Amount %1 exceeds the limit %2 for this category.', Rec.Amount, ExpCat.Limit);
                         end;
+                        CurrPage.Update(); 
                     end;
                 }
                 field(Status; Rec.Status)
@@ -119,8 +136,12 @@ page 50218 Zyn_ExpenseClaimCard
                     Rec.Bill.CreateInStream(InS);
                     DownloadFromStream(InS, '', '', '', TempFile);
                 end;
-
             }
         }
     }
+    trigger OnAfterGetRecord()
+    begin
+        if (Rec.EmpID <> '') and (Rec.CategoryID <> 0) and (Rec.ClaimDate <> 0D) then
+            Rec.CalcRemainingLimit();
+    end;
 }

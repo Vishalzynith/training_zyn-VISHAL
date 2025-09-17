@@ -9,12 +9,17 @@ table 50184 Zyn_ExpenseClaim
             Caption = 'ID';
             AutoIncrement = true;
         }
-        field(34; EmpID; Code[20])
+        field(2; EmpID; Code[20])
         {
             DataClassification = ToBeClassified;
             TableRelation = "Employ Table"."Emp Id.";
+            trigger OnValidate()
+            begin
+                if (CategoryID <> 0) and (ClaimDate <> 0D) then
+                    CalcRemainingLimit();
+            end;
         }
-        field(2; CategoryID; Integer)
+        field(3; CategoryID; Integer)
         {
             Caption = 'Category';
             TableRelation = Zyn_ExpenseCategory.CategoryID WHERE(EmpID = FIELD(EmpID));
@@ -28,28 +33,29 @@ table 50184 Zyn_ExpenseClaim
                     SubType := Cat.SubType;
                     Category := Cat.Code;
                     CategoryName := Cat.Name;
+                    if ClaimDate <> 0D then
+                        CalcRemainingLimit();
                 end;
             end;
         }
-        field(3; Category; Code[20])
+        field(4; Category; Code[20])
         {
             DataClassification = ToBeClassified;
             Caption = 'Category Code';
         }
-        field(4; CategoryName; Text[100])
+        field(5; CategoryName; Text[100])
         {
             DataClassification = ToBeClassified;
             Caption = 'Category Name';
         }
-        field(5; SubType; Text[50])
+        field(6; SubType; Text[50])
         {
             DataClassification = ToBeClassified;
             Caption = 'Sub Type';
         }
-        field(6; ClaimDate; Date)
+        field(7; ClaimDate; Date)
         {
             DataClassification = ToBeClassified;
-
             trigger OnValidate()
             var
                 Duplicate: Record Zyn_ExpenseClaim;
@@ -66,65 +72,53 @@ table 50184 Zyn_ExpenseClaim
                     if Duplicate.FindFirst() then begin
                         if Duplicate.ID <> Rec.ID then
                             Error(
-                              'Duplicate claim not allowed. Employee %1 already has a claim for Category %2 (%3 - %4, %5) on %6. [Existing Claim ID: %7]',
-                              EmpID, CategoryID, Category, CategoryName, SubType, ClaimDate, Duplicate.ID
+                              'Duplicate claim not allowed. Employee %1 already has a claim for Category %2 (%3,%4,%5) on %6.',
+                              EmpID, CategoryID, Category, CategoryName, SubType, ClaimDate
                             );
                     end;
                 end;
+                if (EmpID <> '') and (CategoryID <> 0) then
+                    CalcRemainingLimit();
             end;
         }
-
-        field(7; BillDate; Date)
+        field(8; BillDate; Date)
         {
             DataClassification = ToBeClassified;
         }
-        field(8; Amount; Decimal)
+        field(9; Amount; Decimal)
         {
             DataClassification = ToBeClassified;
-
             trigger OnValidate()
-            var
-                ExpCat: Record Zyn_ExpenseCategory;
-                UsedAmount: Decimal;
-                OldClaim: Record Zyn_ExpenseClaim;
             begin
-                if CategoryID = 0 then
-                    Error('Please select a Category before entering Amount.');
+                if ClaimDate = 0D then
+                    Error('Please enter Claim Date before entering Amount.');
 
-                if not ExpCat.Get(CategoryID) then
-                    Error('Expense Category not found for ID %1.', CategoryID);
-
-                if ExpCat.EmpID <> EmpID then
-                    Error('This category does not belong to employee %1.', EmpID);
-
-                // Calculating FlowField 
-                ExpCat.CalcFields("ClaimedAmount");
-                UsedAmount := ExpCat."ClaimedAmount";
-                if Rec.ID <> 0 then begin
-                    if OldClaim.Get(Rec.ID) then
-                        UsedAmount := UsedAmount - OldClaim.Amount;
-                end;
-                if (UsedAmount + Amount) > ExpCat.Limit then
+                if (Amount > RemainingLimit) then
                     Error(
-                        'Amount %1 exceeds available limit %2 for this category (Total Limit: %3, Already Used: %4).',
-                        Amount, ExpCat.Limit - UsedAmount, ExpCat.Limit, UsedAmount
+                        'Amount %1 exceeds remaining yearly limit %2 for Employee %3 in Category %4.',
+                        Amount, RemainingLimit, EmpID, CategoryID
                     );
             end;
         }
-        field(9; Status; Enum Zyn_Status)
+        field(10; Status; Enum Zyn_Status)
         {
             DataClassification = ToBeClassified;
             Caption = 'Status';
         }
-        field(10; Bill; Blob)
+        field(11; Bill; Blob)
         {
             DataClassification = ToBeClassified;
             Caption = 'Bill (Attachment)';
             Subtype = Bitmap;
         }
-        field(11; Remarks; Text[250])
+        field(12; Remarks; Text[250])
         {
             DataClassification = ToBeClassified;
+        }
+        field(13; RemainingLimit; Decimal)
+        {
+            DataClassification = ToBeClassified;
+            Caption = 'Remaining Limit';
         }
     }
     keys
@@ -134,4 +128,40 @@ table 50184 Zyn_ExpenseClaim
             Clustered = true;
         }
     }
+    var
+        ClaimRec: Record Zyn_ExpenseClaim;
+        ExpCat: Record Zyn_ExpenseCategory;
+
+    procedure CalcRemainingLimit()
+    var
+        UsedAmount: Decimal;
+        YearStart: Date;
+        YearEnd: Date;
+    begin
+        if (EmpID = '') or (CategoryID = 0) or (ClaimDate = 0D) then
+            exit;
+
+        if not ExpCat.Get(CategoryID) then
+            exit;
+        // Setting year
+        YearStart := DMY2Date(1, 1, Date2DMY(ClaimDate, 3));
+        YearEnd := DMY2Date(31, 12, Date2DMY(ClaimDate, 3));
+
+        UsedAmount := 0;
+        ClaimRec.Reset();
+        ClaimRec.SetRange(EmpID, EmpID);
+        ClaimRec.SetRange(CategoryID, CategoryID);
+        ClaimRec.SetRange(Status, Status::Approved);
+        ClaimRec.SetRange(ClaimDate, YearStart, YearEnd);
+
+        if ClaimRec.FindSet() then
+            repeat
+                if ClaimRec.ID <> Rec.ID then
+                    UsedAmount += ClaimRec.Amount;
+            until ClaimRec.Next() = 0;
+        Rec.RemainingLimit := ExpCat.Limit - UsedAmount;
+        if Rec.RemainingLimit < 0 then
+            Rec.RemainingLimit := 0;
+        Modify(true);
+    end;
 }
