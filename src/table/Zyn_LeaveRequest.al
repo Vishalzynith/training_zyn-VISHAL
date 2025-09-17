@@ -10,7 +10,7 @@ table 50278 "LeaveRequest"
         field(4; "From Date"; Date) { DataClassification = ToBeClassified; }
         field(5; "To Date"; Date) { DataClassification = ToBeClassified; }
         field(6; "No.of days"; Integer) { Editable = false; }
-        field(7; Status; Enum "Status") { DataClassification = ToBeClassified; }
+        field(7; Status; Enum Zyn_Status) { DataClassification = ToBeClassified; }
         field(8; "Remaining Days"; Integer) { Editable = false; }
     }
 

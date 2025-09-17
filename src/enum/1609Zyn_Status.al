@@ -1,4 +1,4 @@
-enum 50156 "Status"
+enum 50156 Zyn_Status
 {
     value(1; "Pending")
     {
@@ -10,6 +10,10 @@ enum 50156 "Status"
     }
     value(3; "Rejected")
     {
-        Caption = 'Escalated';
+        Caption = 'Rejected';
+    }
+    value(4;"Cancelled")
+    {
+        Caption='Cancelled';
     }
 }
