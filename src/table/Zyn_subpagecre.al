@@ -1,4 +1,4 @@
-table 50143 Subpageext
+table 50143 Zyn_SubpageExtension
 {
     DataClassification = ToBeClassified;
     fields
@@ -33,7 +33,7 @@ table 50143 Subpageext
         field(7; "Text"; Text[250])
         {
             DataClassification = ToBeClassified;
- 
+
         }
         field(8; "Bold"; Boolean)
         {
@@ -47,7 +47,7 @@ table 50143 Subpageext
         {
             DataClassification = ToBeClassified;
         }
-        field(11; "selection"; enum BeginEndEnum)
+        field(11; "selection"; enum Zyn_BeginEndEnum)
         {
             DataClassification = ToBeClassified;
             Caption = 'Selection';
@@ -61,4 +61,3 @@ table 50143 Subpageext
         }
     }
 }
- 

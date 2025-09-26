@@ -1,4 +1,4 @@
-table 50158 LastSoldPrice
+table 50158 Zyn_LastSoldPrice
 {
     DataClassification = ToBeClassified;
 

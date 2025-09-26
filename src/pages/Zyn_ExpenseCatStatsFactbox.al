@@ -1,7 +1,7 @@
-page 50171 ExpenseCatStatsFactbox
+page 50171 Zyn_ExpenseCategoryFactbox
 {
     PageType = CardPart;
-    SourceTable = "ExpenseCat";
+    SourceTable = Zyn_ExpenseCategory;
     ApplicationArea = All;
     Caption = 'Category Expense Summary';
 
@@ -9,194 +9,183 @@ page 50171 ExpenseCatStatsFactbox
     {
         area(content)
         {
-            field(RemainingBudget; CatRemainingBudget)
+            field(RemainingBudget; CategoryRemainingBudget)
             {
-                ApplicationArea = All;
                 Caption = 'Remaining Budget';
             }
             cuegroup(Summary)
             {
-                field(CurrentMonth; CurrMonthExpense)
+                field(CurrentMonth; CurrentMonthExpense)
                 {
-                    ApplicationArea = All;
                     Caption = 'Current Month';
                     trigger OnDrillDown()
                     begin
                         OpenExpenseList(1);
                     end;
                 }
-                field(CurrentQuarter; CurrQuarterExpense)
+                field(CurrentQuarter; CurrentQuarterExpense)
                 {
-                    ApplicationArea = All;
                     Caption = 'Current Quarter';
                     trigger OnDrillDown()
                     begin
                         OpenExpenseList(2);
                     end;
                 }
-                field(CurrentHalfYear; CurrHalfYearExpense)
+                field(CurrentHalfYear; CurrentHalfYearExpense)
                 {
-                    ApplicationArea = All;
                     Caption = 'Current Half-Year';
                     trigger OnDrillDown()
                     begin
                         OpenExpenseList(3);
                     end;
                 }
-                field(CurrentYear; CurrYearExpense)
+                field(CurrentYear; CurrentYearExpense)
                 {
-                    ApplicationArea = All;
                     Caption = 'Current Year';
                     trigger OnDrillDown()
                     begin
                         OpenExpenseList(4);
                     end;
                 }
-                field(PrevYear; PrevYearExpense)
+                field(PrevYear; PreviousYearExpense)
                 {
-                    ApplicationArea = All;
                     Caption = 'Previous Year';
                     trigger OnDrillDown()
                     begin
                         OpenExpenseList(5);
                     end;
                 }
-
             }
         }
     }
-
     var
-        ExpenseRec: Record "Expense";
-        CurrMonthExpense: Decimal;
-        CurrQuarterExpense: Decimal;
-        CurrHalfYearExpense: Decimal;
-        CurrYearExpense: Decimal;
-        PrevYearExpense: Decimal;
-        CatRemainingBudget: Decimal;
-        BudgetRec: Record Budget;
-
+        ExpenseRecord: Record Zyn_Expense;
+        CurrentMonthExpense: Decimal;
+        CurrentQuarterExpense: Decimal;
+        CurrentHalfYearExpense: Decimal;
+        CurrentYearExpense: Decimal;
+        PreviousYearExpense: Decimal;
+        CategoryRemainingBudget: Decimal;
+        BudgetRecord: Record Zyn_Budget;
     trigger OnAfterGetRecord()
     var
         StartDate: Date;
         EndDate: Date;
-        CurrMonth: Integer;
-        CurrQuarter: Integer;
+        CurrentMonth: Integer;
+        CurrentQuarter: Integer;
         CurrYear: Integer;
-        WorkDt: Date;
-        PrevYear: Integer;
+        WorkDate: Date;
+        PreviousYear: Integer;
     begin
-        Clear(CurrMonthExpense);
-        Clear(CurrQuarterExpense);
-        Clear(CurrHalfYearExpense);
-        Clear(CurrYearExpense);
-        Clear(PrevYearExpense);
-        Clear(CatRemainingBudget);
+        Clear(CurrentMonthExpense);
+        Clear(CurrentQuarterExpense);
+        Clear(CurrentHalfYearExpense);
+        Clear(CurrentYearExpense);
+        Clear(PreviousYearExpense);
+        Clear(CategoryRemainingBudget);
 
-        WorkDt := WorkDate();
-        CurrYear := Date2DMY(WorkDt, 3);
-        CurrMonth := Date2DMY(WorkDt, 2);
-        CurrQuarter := (CurrMonth - 1) div 3 + 1;
-        PrevYear := CurrYear - 1;
+        WorkDate := WorkDate();
+        CurrYear := Date2DMY(WorkDate, 3);
+        CurrentMonth := Date2DMY(WorkDate, 2);
+        CurrentQuarter := (CurrentMonth - 1) div 3 + 1;
+        PreviousYear := CurrYear - 1;
 
-        if BudgetRec.GetBudgetForDate(Rec.Name, WorkDt) then begin
-            ExpenseRec.Reset();
-            ExpenseRec.SetRange(Category, Rec.Name);
-            ExpenseRec.SetRange(Date, BudgetRec.FromDate, BudgetRec.ToDate);
-            ExpenseRec.CalcSums(Amount);
+        if BudgetRecord.GetBudgetForDate(Rec.Name, WorkDate) then begin
+            ExpenseRecord.Reset();
+            ExpenseRecord.SetRange(Category, Rec.Name);
+            ExpenseRecord.SetRange(Date, BudgetRecord.FromDate, BudgetRecord.ToDate);
+            ExpenseRecord.CalcSums(Amount);
 
-            CatRemainingBudget := BudgetRec.Amount - ExpenseRec.Amount;
+            CategoryRemainingBudget := BudgetRecord.Amount - ExpenseRecord.Amount;
         end;
 
-        StartDate := DMY2Date(1, 1, PrevYear);
-        EndDate := DMY2Date(31, 12, PrevYear);
-        PrevYearExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
+        StartDate := DMY2Date(1, 1, PreviousYear);
+        EndDate := DMY2Date(31, 12, PreviousYear);
+        PreviousYearExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
 
-        StartDate := DMY2Date(1, CurrMonth, CurrYear);
+        StartDate := DMY2Date(1, CurrentMonth, CurrYear);
         EndDate := CalcDate('<CM>', StartDate);
-        CurrMonthExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
+        CurrentMonthExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
 
-        StartDate := DMY2Date(1, (CurrQuarter - 1) * 3 + 1, CurrYear);
+        StartDate := DMY2Date(1, (CurrentQuarter - 1) * 3 + 1, CurrYear);
         EndDate := CalcDate('<CQ>', StartDate);
-        CurrQuarterExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
+        CurrentQuarterExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
 
-        if CurrMonth <= 6 then begin
+        if CurrentMonth <= 6 then begin
             StartDate := DMY2Date(1, 1, CurrYear);
             EndDate := DMY2Date(30, 6, CurrYear);
         end else begin
             StartDate := DMY2Date(1, 7, CurrYear);
             EndDate := DMY2Date(31, 12, CurrYear);
         end;
-        CurrHalfYearExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
+        CurrentHalfYearExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
 
         StartDate := DMY2Date(1, 1, CurrYear);
         EndDate := DMY2Date(31, 12, CurrYear);
-        CurrYearExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
+        CurrentYearExpense := GetExpenseTotal(Rec.Name, StartDate, EndDate);
     end;
 
     local procedure GetExpenseTotal(CategoryName: Code[20]; StartDate: Date; EndDate: Date): Decimal
     begin
-        ExpenseRec.Reset();
-        ExpenseRec.SetRange("Category", CategoryName);
-        ExpenseRec.SetRange(Date, StartDate, EndDate);
-        ExpenseRec.CalcSums(Amount);
-        exit(ExpenseRec.Amount);
+        ExpenseRecord.Reset();
+        ExpenseRecord.SetRange("Category", CategoryName);
+        ExpenseRecord.SetRange(Date, StartDate, EndDate);
+        ExpenseRecord.CalcSums(Amount);
+        exit(ExpenseRecord.Amount);
     end;
 
     local procedure OpenExpenseList(d: Integer)
     var
-        ExpenseList: Page "ExpenseList";
+        ExpenseList: Page Zyn_ExpenseList;
         StartDate: Date;
         EndDate: Date;
-        CurrMonth: Integer;
-        CurrQuarter: Integer;
-        CurrYear: Integer;
-        PrevYear: Integer;
-        WorkDt: Date;
+        CurrentMonth: Integer;
+        CurrentQuarter: Integer;
+        CurrentYear: Integer;
+        PreviousYear: Integer;
+        WorkDate: Date;
     begin
-        WorkDt := WorkDate();
-        CurrYear := Date2DMY(WorkDt, 3);
-        CurrMonth := Date2DMY(WorkDt, 2);
-        CurrQuarter := (CurrMonth - 1) div 3 + 1;
-        PrevYear := CurrYear - 1;
-
+        WorkDate := WorkDate();
+        CurrentYear := Date2DMY(WorkDate, 3);
+        CurrentMonth := Date2DMY(WorkDate, 2);
+        CurrentQuarter := (CurrentMonth - 1) div 3 + 1;
+        PreviousYear := CurrentYear - 1;
         case d of
             1:
                 begin
-                    StartDate := DMY2Date(1, CurrMonth, CurrYear);
+                    StartDate := DMY2Date(1, CurrentMonth, CurrentYear);
                     EndDate := CalcDate('<CM>', StartDate);
                 end;
             2:
                 begin
-                    StartDate := DMY2Date(1, (CurrQuarter - 1) * 3 + 1, CurrYear);
+                    StartDate := DMY2Date(1, (CurrentQuarter - 1) * 3 + 1, CurrentYear);
                     EndDate := CalcDate('<CQ>', StartDate);
                 end;
             3:
                 begin
-                    if CurrMonth <= 6 then begin
-                        StartDate := DMY2Date(1, 1, CurrYear);
-                        EndDate := DMY2Date(30, 6, CurrYear);
+                    if CurrentMonth <= 6 then begin
+                        StartDate := DMY2Date(1, 1, CurrentYear);
+                        EndDate := DMY2Date(30, 6, CurrentYear);
                     end else begin
-                        StartDate := DMY2Date(1, 7, CurrYear);
-                        EndDate := DMY2Date(31, 12, CurrYear);
+                        StartDate := DMY2Date(1, 7, CurrentYear);
+                        EndDate := DMY2Date(31, 12, CurrentYear);
                     end;
                 end;
             4:
                 begin
-                    StartDate := DMY2Date(1, 1, CurrYear);
-                    EndDate := DMY2Date(31, 12, CurrYear);
+                    StartDate := DMY2Date(1, 1, CurrentYear);
+                    EndDate := DMY2Date(31, 12, CurrentYear);
                 end;
             5:
                 begin
-                    StartDate := DMY2Date(1, 1, PrevYear);
-                    EndDate := DMY2Date(31, 12, PrevYear);
+                    StartDate := DMY2Date(1, 1, PreviousYear);
+                    EndDate := DMY2Date(31, 12, PreviousYear);
                 end;
         end;
-
-        ExpenseRec.Reset();
-        ExpenseRec.SetRange("Category", Rec.Name);
-        ExpenseRec.SetRange(Date, StartDate, EndDate);
-        ExpenseList.SetTableView(ExpenseRec);
+        ExpenseRecord.Reset();
+        ExpenseRecord.SetRange("Category", Rec.Name);
+        ExpenseRecord.SetRange(Date, StartDate, EndDate);
+        ExpenseList.SetTableView(ExpenseRecord);
         ExpenseList.Run();
     end;
 }

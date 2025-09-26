@@ -1,4 +1,4 @@
-tableextension 50138 "Text Line Ext" extends "Extended Text Line"
+tableextension 50138 Zyn_TextLineExt extends "Extended Text Line"
 {
     fields
     {

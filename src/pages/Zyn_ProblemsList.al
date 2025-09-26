@@ -1,8 +1,8 @@
-page 50121 "Problem List"
+page 50121 Zyn_ProblemList
 {
     PageType = List;
-    SourceTable = Problems;
-    ApplicationArea = All;
+    SourceTable = Zyn_Problems;
+    ApplicationArea=All;
     InsertAllowed = true;
     Editable = true;
     layout
@@ -12,24 +12,19 @@ page 50121 "Problem List"
             repeater(Group)
             {
                 field("Problem "; Rec.Problem)
-                {
-                    ApplicationArea = All;
+                {          
                 }
                 field("Department"; Rec.Dept)
-                {
-                    ApplicationArea = All;
+                {                  
                 }
                 field("Technician"; Rec.Technician)
-                {
-                    ApplicationArea = All;
+                {                   
                 }
                 field("Description"; Rec.Description)
-                {
-                    ApplicationArea = All;
+                {                   
                 }
                 field("Date"; Rec.Date)
-                {
-                    ApplicationArea = All;
+                {         
                 }
             }
         }

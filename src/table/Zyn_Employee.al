@@ -1,4 +1,4 @@
-table 50276 "Employ Table"
+table 50276 Zyn_Employee
 {
     DataClassification = ToBeClassified;
     fields
@@ -11,18 +11,18 @@ table 50276 "Employ Table"
         {
             DataClassification = ToBeClassified;
         }
-        field(3; role; Enum Roles)
+        field(3; role; Enum Zyn_Roles)
         {
             DataClassification = ToBeClassified;
         }
-        field(4; Department; Enum "Department Enum")
+        field(4; Department; Enum Zyn_DepartmentEnum)
         {
             DataClassification = ToBeClassified;
         }
         field(50; "Assigned Asset Count"; Integer)
         {
             FieldClass = FlowField;
-            CalcFormula = count(EmpAssets where(EmpID = field("Emp Id."),
+            CalcFormula = count(Zyn_EmpAssets where(EmpID = field("Emp Id."),
                                         Status = const(Assigned)));
         }
 
@@ -36,8 +36,8 @@ table 50276 "Employ Table"
     }
     trigger OnDelete()
     var
-        LeaveReq: Record "LeaveRequest";
-        LeaveLog: Record "Employee Leave Log";
+        LeaveReq: Record Zyn_LeaveRequest;
+        LeaveLog: Record Zyn_EmployeeLeaveLog;
     begin
 
         LeaveReq.Reset();

@@ -1,5 +1,5 @@
 //Lines 48-64: Addition of 2 fields as part of Subscription Notification Task
-table 50180 Subscription
+table 50180 Zyn_Subscription
 {
     DataClassification = ToBeClassified;
 
@@ -14,10 +14,10 @@ table 50180 Subscription
         field(3; PlanID; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = Plans.PlanID;
+            TableRelation = Zyn_Plans.PlanID;
             trigger OnValidate()
             var
-                PlanRec: Record Plans;
+                PlanRec: Record Zyn_Plans;
             begin
                 if PlanRec.Get(PlanID) then begin
                     if PlanRec.Status <> PlanRec.Status::Active then
@@ -44,7 +44,7 @@ table 50180 Subscription
             end;
         }
         field(5; EndDate; Date) { DataClassification = ToBeClassified; }
-        field(6; Status; Enum SubEnum) { DataClassification = ToBeClassified; }
+        field(6; Status; Enum Zyn_SubEnum) { DataClassification = ToBeClassified; }
         field(7; NextBilling; Date) { DataClassification = ToBeClassified; }
         field(9; "Next Renewal Date"; Date)
         {
@@ -80,6 +80,7 @@ table 50180 Subscription
     begin
         UpdateStatus();
     end;
+
     local procedure UpdateDates()
     var
         Expr: Text[30];

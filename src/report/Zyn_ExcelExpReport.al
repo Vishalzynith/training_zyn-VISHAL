@@ -1,4 +1,4 @@
-report 50120 ExpenseFilterPage
+report 50120 Zyn_ExpenseFilterPage
 {
     Caption = 'Expense Export Report';
     UsageCategory = ReportsAndAnalysis;
@@ -7,7 +7,7 @@ report 50120 ExpenseFilterPage
  
     dataset
     {
-        dataitem(Expense; "Expense")
+        dataitem(Expense; Zyn_Expense)
         {
  
             trigger OnPreDataItem()
@@ -56,7 +56,7 @@ report 50120 ExpenseFilterPage
                     field("Category"; CategoryFilter)
                     {
                         ApplicationArea = All;
-                        TableRelation = ExpenseCat.Name;
+                        TableRelation = Zyn_ExpenseCategory.Name;
                     }
                 }
             }

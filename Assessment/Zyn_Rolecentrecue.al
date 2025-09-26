@@ -1,5 +1,5 @@
 //Line 90-102 : Subscription Notification Task
-page 50213 "Zyn Subscription Cue Card"
+page 50213 Zyn_SubscriptionCueCard
 {
     PageType = CardPart;
     ApplicationArea = All;
@@ -19,10 +19,10 @@ page 50213 "Zyn Subscription Cue Card"
                     DrillDown = true;
                     trigger OnDrillDown()
                     var
-                        SubRec: Record Subscription;
+                        SubRec: Record Zyn_Subscription;
                     begin
                         SubRec.SetRange(Status, SubRec.Status::Active);
-                        Page.Run(Page::"SubscriptionList", SubRec);
+                        Page.Run(Page::Zyn_SubscriptionList, SubRec);
                     end;
                 }
 
@@ -56,7 +56,7 @@ page 50213 "Zyn Subscription Cue Card"
 
     trigger OnAfterGetRecord()
     var
-        SubRec: Record Subscription;
+        SubRec: Record Zyn_Subscription;
         SalesHdr: Record "Sales Header";
         StartDate: Date;
         EndDate: Date;
@@ -86,14 +86,14 @@ page 50213 "Zyn Subscription Cue Card"
 
         RevenueThisMonth := totalamnt;
     end;
-//Subscription Notification Task
+    //Subscription Notification Task
     var
         NotificationMgt: Codeunit Zyn_SubscriptionRenewal;
-        SubRec: Record Subscription;
+        SubRec: Record Zyn_Subscription;
 
     trigger OnOpenPage()
     var
-        SubRec: Record Subscription;
+        SubRec: Record Zyn_Subscription;
     begin
         SubRec.SetRange(Status, SubRec.Status::Active);
         if SubRec.FindSet() then

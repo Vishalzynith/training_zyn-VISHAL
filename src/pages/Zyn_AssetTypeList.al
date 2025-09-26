@@ -1,9 +1,9 @@
-page 50199 AssetTypeList
+page 50199 Zyn_AssetTypeList
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = AssetType;
+    SourceTable = Zyn_AssetType;
     CardPageId = 50200;
     //Editable=false;
     InsertAllowed = false;
@@ -14,10 +14,16 @@ page 50199 AssetTypeList
         {
             repeater(AssetList)
             {
-                field(Category;Rec.Category) { ApplicationArea = All; }
-                field(Name;Rec.Name) { ApplicationArea = All; }
+                field(Category; Rec.Category)
+                {
+                    Caption = 'Category';
+                }
+                field(Name; Rec.Name)
+                {
+                    Caption = 'Name';
+                }
             }
         }
-        
+
     }
 }

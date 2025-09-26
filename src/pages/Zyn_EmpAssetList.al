@@ -3,34 +3,48 @@ page 50203 "Zyn_EmpAssetList"
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = EmpAssets;
+    SourceTable = Zyn_EmpAssets;
     CardPageId = 50204;
     InsertAllowed = false;
     ModifyAllowed = false;
-
     layout
     {
         area(Content)
         {
             repeater(EmpAssetList)
             {
-                field(EmpID; Rec.EmpID) { ApplicationArea = All; }
-                field(SerialNo; Rec.SerialNo) { ApplicationArea = All; }
-                field(Status; Rec.Status) { ApplicationArea = All; }
-                field(AssignedDate; Rec.AssignedDate) { ApplicationArea = All; }
-                field(ReturnedDate; Rec.ReturnedDate) { ApplicationArea = All; }
-                field(LostDate; Rec.LostDate) { ApplicationArea = All; }
+                field(EmpID; Rec.EmpID)
+                {
+                    Caption = 'Employee ID';
+                }
+                field(SerialNo; Rec.SerialNo)
+                {
+                    Caption = 'Serial No';
+                }
+                field(Status; Rec.Status)
+                {
+                    Caption = 'Status';
+                }
+                field(AssignedDate; Rec.AssignedDate)
+                {
+                    Caption = 'Assigned Date';
+                }
+                field(ReturnedDate; Rec.ReturnedDate)
+                {
+                    Caption = 'Returned Date';
+                }
+                field(LostDate; Rec.LostDate)
+                {
+                    Caption = 'Lost Date';
+                }
             }
         }
-
         area(FactBoxes)
         {
             part(AssetStats; "Zyn_AssetStatsFactbox")
             {
-                ApplicationArea = All;
-                SubPageLink = EmpID = field(EmpID); 
+                SubPageLink = EmpID = field(EmpID);
             }
         }
     }
-
 }

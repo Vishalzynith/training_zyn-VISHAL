@@ -1,9 +1,9 @@
-page 50178 IncomeCat
+page 50178 Zyn_IncomeCategory
 {
     PageType = List;
     ApplicationArea = All;
-    SourceTable = IncomeCat;
-    Editable=false;
+    SourceTable = Zyn_IncomeCategory;
+    Editable = false;
     InsertAllowed = false;
     ModifyAllowed = false;
     CardPageId = 50179;
@@ -11,19 +11,25 @@ page 50178 IncomeCat
     {
         area(Content)
         {
-            repeater(IncomeList){
-            field(CategoryNo; Rec.CategoryNo) { ApplicationArea = All; }
-            field(Name; Rec.Name) { ApplicationArea = All; }
-            field(Description; Rec.Description) { ApplicationArea = All; }
-        }}
-        area(FactBoxes)
-        {
-            part(IncomeCatStatsFactbox; IncomeCatStatsFactbox)
+            repeater(IncomeList)
             {
-                ApplicationArea = All;
-                SubPageLink=Name=field(Name);
+                field(CategoryNo; Rec.CategoryNo)
+                {
+                }
+                field(Name; Rec.Name)
+                {
+                }
+                field(Description; Rec.Description)
+                {
+                }
             }
         }
-
+        area(FactBoxes)
+        {
+            part(IncomeCatStatsFactbox; Zyn_IncomeCategoryFactbox)
+            {
+                SubPageLink = Name = field(Name);
+            }
+        }
     }
 }

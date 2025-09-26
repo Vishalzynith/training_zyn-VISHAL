@@ -1,4 +1,4 @@
-report 50102 "Customer Balance Report"
+report 50102 Zyn_CustomerBalanceReport
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;

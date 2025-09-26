@@ -8,10 +8,10 @@ table 50183 Zyn_ExpenseCategory
             AutoIncrement = true;
             DataClassification = ToBeClassified;
         }
-        field(2; EmpID; Code[20])   
+        field(2; EmpID; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Employ Table"."Emp Id.";
+            TableRelation = Zyn_Employee."Emp Id.";
             Caption = 'Employee ID';
         }
         field(3; Code; Code[20])
@@ -34,7 +34,7 @@ table 50183 Zyn_ExpenseCategory
         field(7; "ClaimedAmount"; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = 
+            CalcFormula =
                 Sum("Zyn_ExpenseClaim".Amount WHERE(
                     EmpID = FIELD(EmpID),
                     CategoryID = FIELD(CategoryID),
@@ -60,6 +60,7 @@ table 50183 Zyn_ExpenseCategory
         if Limit <= 0 then
             Error('Limit must be set and greater than 0');
     end;
+
     trigger OnModify()
     begin
         if Limit <= 0 then

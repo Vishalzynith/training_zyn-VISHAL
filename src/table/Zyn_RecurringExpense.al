@@ -1,16 +1,16 @@
-table 50185 RecurringExpense
+table 50185 Zyn_RecurringExpense
 {
     DataClassification = ToBeClassified;
     fields
     {
         field(1; RecExpID; Integer) { DataClassification = ToBeClassified; }
-        field(2; Amount; Decimal) { DataClassification = ToBeClassified;}
+        field(2; Amount; Decimal) { DataClassification = ToBeClassified; }
         field(3; Category; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = ExpenseCat.Name;
+            TableRelation = Zyn_ExpenseCategory.Name;
         }
-        field(4; Cycle; Enum RecurringCycle)
+        field(4; Cycle; Enum Zyn_RecurringCycle)
         {
             DataClassification = ToBeClassified;
             trigger OnValidate()
@@ -31,7 +31,7 @@ table 50185 RecurringExpense
         field(6; NextCycle; Date) { DataClassification = ToBeClassified; }
     }
     keys { key(PK; RecExpID) { Clustered = true; } }
-    procedure GetNextCycleDate(CurrentDate: Date; Cycle: Enum RecurringCycle): Date
+    procedure GetNextCycleDate(CurrentDate: Date; Cycle: Enum Zyn_RecurringCycle): Date
     begin
         case Cycle of
             Cycle::Weekly:

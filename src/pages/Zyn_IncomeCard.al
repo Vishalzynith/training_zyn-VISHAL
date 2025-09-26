@@ -1,20 +1,29 @@
-page 50177 IncomeCard
+page 50177 Zyn_IncomeCard
 {
     PageType = Card;
     ApplicationArea = All;
-    SourceTable = Income;
-
+    SourceTable = Zyn_Income;
     layout
     {
         area(Content)
         {
             group(IncomeCard)
             {
-                field(IncomeID; Rec.IncomeID) { ApplicationArea = All; }
-                field(Description; Rec.Description) { ApplicationArea = All; }
-                field(Amount; Rec.Amount) { ApplicationArea = All; }
-                field("Category"; Rec.Category) { ApplicationArea = All; }
-                field(Date; Rec.Date) { ApplicationArea = All; }
+                field(IncomeID; Rec.IncomeID)
+                {
+                }
+                field(Description; Rec.Description)
+                {
+                }
+                field(Amount; Rec.Amount)
+                {
+                }
+                field("Category"; Rec.Category)
+                {
+                }
+                field(Date; Rec.Date)
+                {
+                }
             }
         }
     }

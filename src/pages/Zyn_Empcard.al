@@ -1,8 +1,8 @@
-page 50275 "Employee Card page"
+page 50275 Zyn_EmployeeCard
 {
     Caption = 'Employee Card';
     PageType = Card;
-    SourceTable = "Employ Table";
+    SourceTable = Zyn_Employee;
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = true;
@@ -15,23 +15,19 @@ page 50275 "Employee Card page"
             {
                 field("Emp Id"; Rec."Emp Id.")
                 {
-                    ApplicationArea = All;
                 }
                 field(Name; Rec.Name)
                 {
-                    ApplicationArea = All;
                 }
                 field(Department; Rec.Department)
                 {
-                    ApplicationArea = All;
                 }
                
                 field(role; Rec.role)
                 {
-                    ApplicationArea = All;
+                }
             }
         }
     }
-}
 }
  

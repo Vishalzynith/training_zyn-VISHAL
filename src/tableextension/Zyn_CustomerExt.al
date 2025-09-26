@@ -1,5 +1,5 @@
 
-tableextension 50115 CustomerExt extends Customer
+tableextension 50115 Zyn_CustomerExt extends Customer
 {
     fields
     {
@@ -65,7 +65,7 @@ tableextension 50120 PruchaseApprovalExt extends "Purchase Header"
 {
     fields
     {
-        field(50104; "Approval Status"; Enum Microsoft.Purchases.Document."Approval Status")
+        field(50104; "Approval Status"; Enum Microsoft.Purchases.Document.Zyn_ApprovalStatus)
         {
             Caption = 'Approval Status';
             DataClassification = CustomerContent;

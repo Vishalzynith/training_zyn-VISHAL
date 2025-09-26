@@ -1,4 +1,4 @@
-report 50190 "Budget vs Expense Report"
+report 50190 Zyn_BudgetvsExpense
 {
     Caption = 'Budget vs Expense Report';
     ProcessingOnly = true;
@@ -11,19 +11,19 @@ report 50190 "Budget vs Expense Report"
             DataItemTableView = SORTING(Number) WHERE(Number = CONST(1));
             trigger OnAfterGetRecord()
             var
-                BudgetRec: Record Budget;
-                ExpenseRec: Record Expense;
-                IncomeRec: Record Income;   
-                CategoryRec: Record ExpenseCat;
+                BudgetRec: Record Zyn_Budget;
+                ExpenseRec: Record Zyn_Expense;
+                IncomeRec: Record Zyn_Income;
+                CategoryRec: Record Zyn_ExpenseCategory;
                 MonthLoop: Integer;
                 StartDate: Date;
                 EndDate: Date;
                 TotalBudget: Decimal;
                 SpentBudget: Decimal;
-                TotalIncome: Decimal;       
-                Savings: Decimal;           
+                TotalIncome: Decimal;
+                Savings: Decimal;
                 MonthPrinted: Boolean;
-                CategorySpent:Decimal;
+                CategorySpent: Decimal;
             begin
                 for MonthLoop := 1 to 12 do begin
                     StartDate := DMY2Date(1, MonthLoop, YearFilter);
@@ -83,7 +83,7 @@ report 50190 "Budget vs Expense Report"
                     ExcelBuf.AddColumn('Income', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('', false, '', false, false, false, '', ExcelBuf."Cell Type"::Number);
                     ExcelBuf.AddColumn(TotalIncome, false, '', false, false, false, '', ExcelBuf."Cell Type"::Number);
-                    
+
                     ExcelBuf.NewRow();
                     ExcelBuf.AddColumn('', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
                     ExcelBuf.AddColumn('Savings', false, '', false, false, false, '', ExcelBuf."Cell Type"::Text);
@@ -120,6 +120,7 @@ report 50190 "Budget vs Expense Report"
         ExcelBuf.AddColumn('Budget', false, '', true, false, true, '', ExcelBuf."Cell Type"::Number);
         ExcelBuf.AddColumn('Expense', false, '', true, false, true, '', ExcelBuf."Cell Type"::Number);
     end;
+
     trigger OnPostReport()
     begin
         ExcelBuf.CreateNewBook('Budget vs Expense');
@@ -127,6 +128,7 @@ report 50190 "Budget vs Expense Report"
         ExcelBuf.CloseBook();
         ExcelBuf.OpenExcel();
     end;
+
     var
         ExcelBuf: Record "Excel Buffer" temporary;
         YearFilter: Integer;

@@ -1,4 +1,4 @@
-table 50170 Assets
+table 50170 Zyn_Assets
 {
     DataClassification = ToBeClassified;
 
@@ -12,7 +12,7 @@ table 50170 Assets
         field(1; AssetType; Text[50])
         {
             DataClassification = ToBeClassified;
-            TableRelation = AssetType.Name;
+            TableRelation = Zyn_AssetType.Name;
         }
         field(2; SerialNo; Code[20])
         {
@@ -49,7 +49,7 @@ table 50170 Assets
     var
         ExpiryDate: Date;
         WorkDate: Date;
-        EmpAssetRec: Record EmpAssets;
+        EmpAssetRec: Record Zyn_EmpAssets;
     begin
         WorkDate := System.WorkDate();
 
@@ -80,7 +80,7 @@ table 50170 Assets
                     Rec.Available := true;
             end;
         end else
-            Rec.Available := true; 
+            Rec.Available := true;
     end;
 
     trigger OnInsert()
@@ -95,16 +95,16 @@ table 50170 Assets
 
     trigger OnDelete()
     var
-        EmpAssetRec: Record EmpAssets;
+        EmpAssetRec: Record Zyn_EmpAssets;
     begin
-        
+
         EmpAssetRec.Reset();
         EmpAssetRec.SetRange(SerialNo, Rec.SerialNo);
         EmpAssetRec.SetRange(Status, EmpAssetRec.Status::Assigned);
         if EmpAssetRec.FindFirst() then
             Error('Cannot delete Asset %1 because it is currently assigned.', Rec.SerialNo);
 
-        
+
         EmpAssetRec.Reset();
         EmpAssetRec.SetRange(SerialNo, Rec.SerialNo);
         if EmpAssetRec.FindSet() then

@@ -2,7 +2,7 @@ page 50205 "Zyn_AssetStatsFactbox"
 {
     PageType = CardPart;
     ApplicationArea = All;
-    SourceTable = EmpAssets;
+    SourceTable = Zyn_EmpAssets;
     Caption = 'Asset History';
 
     layout
@@ -12,32 +12,28 @@ page 50205 "Zyn_AssetStatsFactbox"
             cuegroup(TotalGroup)
             {
                 Caption = 'Assets';
-
                 field(TotalAssets; TotalAssets)
                 {
-                    ApplicationArea = All;
                     Caption = 'Total Assets';
-
                     trigger OnDrillDown()
                     var
-                        TmpRec: Record EmpAssets;
+                        EmployeeAssetsRecord: Record Zyn_EmpAssets;
                     begin
-                        TmpRec.Reset();
-                        PAGE.Run(PAGE::"Zyn_EmpAssetList", TmpRec);
+                        EmployeeAssetsRecord.Reset();
+                        PAGE.Run(PAGE::"Zyn_EmpAssetList", EmployeeAssetsRecord);
                     end;
                 }
             }
         }
     }
-
     var
         TotalAssets: Integer;
 
     trigger OnAfterGetRecord()
     var
-        TmpRec: Record EmpAssets;
+        EmployeeAssetsRecord: Record Zyn_EmpAssets;
     begin
-        TmpRec.Reset();
-        TotalAssets := TmpRec.Count(); 
+        EmployeeAssetsRecord.Reset();
+        TotalAssets := EmployeeAssetsRecord.Count();
     end;
 }

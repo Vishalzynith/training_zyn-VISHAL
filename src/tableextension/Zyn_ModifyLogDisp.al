@@ -1,10 +1,10 @@
-tableextension 50110 CustomerModifyExt extends Customer
+tableextension 50110 Zyn_CustomerModify extends Customer
 {
     trigger OnBeforeModify()
     var
         RecRef, xRecRef: RecordRef;
         FieldRef, xFieldRef: FieldRef;
-        LogEntry: Record "Modify Log";
+        LogEntry: Record Zyn_ModifyLog;
         i: Integer;
         FieldName: Text;
     begin

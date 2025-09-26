@@ -1,4 +1,4 @@
-pageextension 50115 VendorListExt extends "Vendor List"
+pageextension 50115 Zyn_VendorListExt extends "Vendor List"
 {
     layout
     {
@@ -7,6 +7,7 @@ pageextension 50115 VendorListExt extends "Vendor List"
             field("Notes123"; Rec."Notes123")
             {
                 ApplicationArea = All;
+                Caption = 'Notes123';
 
             }
 

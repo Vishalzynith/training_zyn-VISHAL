@@ -1,8 +1,8 @@
-page 50190 BudgetListPart
+page 50190 Zyn_BudgetListPart
 {
     PageType = Listpart;
     ApplicationArea = All;
-    SourceTable = Budget;
+    SourceTable = Zyn_Budget;
     Editable = false;
     layout
     {
@@ -10,14 +10,29 @@ page 50190 BudgetListPart
         {
             repeater(BudgetList)
             {
-                field(BudgetID; Rec.BudgetID) { ApplicationArea = All; }
-                field(Category; Rec.Category) { ApplicationArea = All; }
-                field(Amount; Rec.Amount) { ApplicationArea = All; }
-                field(FromDate; Rec.FromDate) { ApplicationArea = All; }
-                field(ToDate; Rec.ToDate) { ApplicationArea = All; }
+                field(BudgetID; Rec.BudgetID)
+                {
+                    Caption = 'Budget ID';
+                }
+                field(Category; Rec.Category)
+                {
+                    Caption = 'Category';
+                }
+                field(Amount; Rec.Amount)
+                {
+                    Caption = 'Budget Amount';
+                }
+                field(FromDate; Rec.FromDate)
+                {
+                    Caption = 'From Date';
+                }
+                field(ToDate; Rec.ToDate)
+                {
+                    Caption = 'To Date';
+                }
             }
         }
-        
+
     }
 
 }

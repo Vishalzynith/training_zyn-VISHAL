@@ -2,34 +2,34 @@ codeunit 50220 Zyn_ExpenseClaimManagement
 {
     local procedure ValidateAmount(var Claim: Record Zyn_ExpenseClaim)
     var
-        ExpCat: Record Zyn_ExpenseCategory;
+        ExpenseCategory: Record Zyn_ExpenseCategory;
     begin
-        if not ExpCat.Get(Claim.CategoryID) then
+        if not ExpenseCategory.Get(Claim.CategoryID) then
             Error('Expense Category not found for ID %1.', Claim.CategoryID);
 
-        if ExpCat.EmpID <> Claim.EmpID then
+        if ExpenseCategory.EmpID <> Claim.EmpID then
             Error('This category does not belong to employee %1.', Claim.EmpID);
 
         //Fetching value from amount
-        ExpCat.CalcFields("ClaimedAmount"); 
+        ExpenseCategory.CalcFields("ClaimedAmount"); 
 
-        if Claim.Amount > (ExpCat.Limit - ExpCat."ClaimedAmount") then
+        if Claim.Amount > (ExpenseCategory.Limit - ExpenseCategory."ClaimedAmount") then
             Error(
                 'Amount %1 exceeds available limit %2 for this category (Total Limit: %3, Already Used: %4).',
-                Claim.Amount, ExpCat.Limit - ExpCat."ClaimedAmount", ExpCat.Limit, ExpCat."ClaimedAmount"
+                Claim.Amount, ExpenseCategory.Limit - ExpenseCategory."ClaimedAmount", ExpenseCategory.Limit, ExpenseCategory."ClaimedAmount"
             );
     end;
     local procedure Validatebill(var Claim: Record "Zyn_ExpenseClaim"; Months: Integer)
     var
-        MaxAllowed: Date;
+        MaximumAllowed: Date;
     begin
         if Claim.BillDate = 0D then
             Error('Bill Date must be provided.');
         //BillDate + Months
-        MaxAllowed := CalcDate('<+' + Format(Months) + 'M>', Claim.BillDate);
+        MaximumAllowed := CalcDate('<+' + Format(Months) + 'M>', Claim.BillDate);
 
         //Claimdate is within range or not
-        if (Claim.ClaimDate < Claim.BillDate) or (Claim.ClaimDate > MaxAllowed) then
+        if (Claim.ClaimDate < Claim.BillDate) or (Claim.ClaimDate > MaximumAllowed) then
             Error('Claim Date (%1) must be within %2 months from Bill Date (%3)',
                 Claim.ClaimDate, Months, Claim.BillDate);
     end;

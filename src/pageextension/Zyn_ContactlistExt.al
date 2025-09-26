@@ -1,4 +1,4 @@
-pageextension 50109 ContactListExt extends "Contact List"
+pageextension 50109 Zyn_ContactListExt extends "Contact List"
 {
     actions
     {

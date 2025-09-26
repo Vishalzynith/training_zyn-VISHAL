@@ -12,11 +12,11 @@ page 50218 Zyn_ExpenseClaimCard
             {
                 field(ID; Rec.ID)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Claim ID';
                 }
                 field(EmpID; Rec.EmpID)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Employee ID';
                     trigger OnValidate()
                     begin
                         CurrPage.Update(); // refreshing rem list
@@ -24,7 +24,7 @@ page 50218 Zyn_ExpenseClaimCard
                 }
                 field(CategoryID; Rec.CategoryID)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Category ID';
                     trigger OnValidate()
                     begin
                         CurrPage.Update(); 
@@ -32,11 +32,11 @@ page 50218 Zyn_ExpenseClaimCard
                 }
                 field(SubType; Rec.SubType)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Sub Type';
                 }
                 field(ClaimDate; Rec.ClaimDate)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Claim Date';
                     trigger OnValidate()
                     begin
                         CurrPage.Update(); 
@@ -44,15 +44,15 @@ page 50218 Zyn_ExpenseClaimCard
                 }
                 field(BillDate; Rec.BillDate)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Bill Date';
                 }
                 field(RemainingLimit; Rec.RemainingLimit)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Remaining Limit';
                 }
                 field(Amount; Rec.Amount)
                 {
-                    ApplicationArea = All;
+                    Caption='Amount';
                     trigger OnValidate()
                     var
                         ExpCat: Record Zyn_ExpenseCategory;
@@ -66,15 +66,15 @@ page 50218 Zyn_ExpenseClaimCard
                 }
                 field(Status; Rec.Status)
                 {
-                    ApplicationArea = All;
+                    Caption='Status';
                 }
                 field(Remarks; Rec.Remarks)
                 {
-                    ApplicationArea = All;
+                    Caption='Remarks';
                 }
                 field(Bill; Rec.Bill)
                 {
-                    ApplicationArea = All;
+                    Caption='Bill';
                 }
             }
         }
@@ -86,14 +86,13 @@ page 50218 Zyn_ExpenseClaimCard
             action(CancelClaim)
             {
                 Caption = 'Cancel Claim';
-                ApplicationArea = All;
                 trigger OnAction()
                 var
-                    ClaimMgt: Codeunit Zyn_ExpenseClaimManagement;
+                    ExpenseClaimManagement: Codeunit Zyn_ExpenseClaimManagement;
                     Claim: Record Zyn_ExpenseClaim;
                 begin
                     Claim := Rec;
-                    ClaimMgt.CancelClaim(Claim);
+                    ExpenseClaimManagement.CancelClaim(Claim);
                     Claim.Modify();
                     Message('Claim %1 cancelled.', Claim.ID);
                     CurrPage.Update();
@@ -103,17 +102,16 @@ page 50218 Zyn_ExpenseClaimCard
             {
                 Caption = 'Upload Bill';
                 Image = Import;
-                ApplicationArea = All;
                 trigger OnAction()
                 var
                     FileName: Text;
-                    InS: InStream;
-                    OutS: OutStream;
+                    InStream: InStream;
+                    OutStream: OutStream;
                 begin
-                    if UploadIntoStream('Select file', '', '', FileName, InS) then begin
+                    if UploadIntoStream('Select file', '', '', FileName, InStream) then begin
                         Clear(Rec.Bill);
-                        Rec.Bill.CreateOutStream(OutS);
-                        CopyStream(OutS, InS);
+                        Rec.Bill.CreateOutStream(OutStream);
+                        CopyStream(OutStream, InStream);
                         Rec.Modify();
                         Message('File %1 uploaded successfully!', FileName);
                     end;
@@ -127,14 +125,14 @@ page 50218 Zyn_ExpenseClaimCard
                 trigger OnAction()
                 var
                     OutS: OutStream;
-                    InS: InStream;
+                    InStream: InStream;
                     TempFile: Text;
                 begin
                     if not Rec.Bill.HasValue then
                         Error('No file available.');
                     TempFile := 'ClaimBill_' + Format(Rec.ID) + '.pdf';
-                    Rec.Bill.CreateInStream(InS);
-                    DownloadFromStream(InS, '', '', '', TempFile);
+                    Rec.Bill.CreateInStream(InStream);
+                    DownloadFromStream(InStream, '', '', '', TempFile);
                 end;
             }
         }

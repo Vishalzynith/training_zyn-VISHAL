@@ -1,9 +1,9 @@
-page 50182 BudgetList
+page 50182 Zyn_BudgetList
 {
-    PageType = List;
     ApplicationArea = All;
+    PageType = List;
     UsageCategory = Lists;
-    SourceTable = Budget;
+    SourceTable = Zyn_Budget;
     CardPageId = 50183;
     //Editable=false;
     InsertAllowed = false;
@@ -14,14 +14,28 @@ page 50182 BudgetList
         {
             repeater(BudgetList)
             {
-                field(BudgetID; Rec.BudgetID) { ApplicationArea = All; }
-                field(Category; Rec.Category) { ApplicationArea = All; }
-                field(Amount; Rec.Amount) { ApplicationArea = All; }
-                field(FromDate; Rec.FromDate) { ApplicationArea = All; }
-                field(ToDate; Rec.ToDate) { ApplicationArea = All; }
+                field(BudgetID; Rec.BudgetID)
+                {
+                    Caption = 'Budget ID';
+                }
+                field(Category; Rec.Category)
+                {
+                    Caption = 'Category';
+                }
+                field(Amount; Rec.Amount)
+                {
+                    Caption = 'Budget Amount';
+                }
+                field(FromDate; Rec.FromDate)
+                {
+                    Caption = 'From Date';
+                }
+                field(ToDate; Rec.ToDate)
+                {
+                    Caption = 'To Date';
+                }
             }
         }
-        
     }
     actions
     {
@@ -30,32 +44,31 @@ page 50182 BudgetList
             action(SelectCategory)
             {
                 ApplicationArea = All;
-                Caption = 'SelectCategory';
-                RunObject = page "ExpenseCat";
+                Caption = 'Select Category';
+                RunObject = page Zyn_ExpenseCategory;
             }
             action(ExpenseExportFilter)
             {
                 ApplicationArea = All;
                 Caption = 'Export Filtered Expenses';
-                RunObject = report ExpenseFilterPage;
+                RunObject = report Zyn_ExpenseFilterPage;
             }
         }
     }
     trigger OnNewRecord(BelowxRec: Boolean)
     var
-        CurrYear: Integer;
-        CurrMonth: Integer;
+        CurrentYear: Integer;
+        CurrentMonth: Integer;
         StartDate: Date;
         EndDate: Date;
-        WorkDt: Date;
+        WorkDate: Date;
     begin
-        WorkDt := WorkDate();
-        CurrYear := Date2DMY(WorkDt, 3);
-        CurrMonth := Date2DMY(WorkDt, 2);
-        StartDate := DMY2Date(1, CurrMonth, CurrYear);
+        WorkDate := WorkDate();
+        CurrentYear := Date2DMY(WorkDate, 3);
+        CurrentMonth := Date2DMY(WorkDate, 2);
+        StartDate := DMY2Date(1, CurrentMonth, CurrentYear);
         EndDate := CalcDate('<CM>', StartDate);
         Rec.FromDate := StartDate;
         Rec.ToDate := EndDate;
     end;
-
 }

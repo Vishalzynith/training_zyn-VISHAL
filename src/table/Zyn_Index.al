@@ -1,9 +1,9 @@
-table 50161 Index
+table 50161 Zyn_Index
 {
     fields
     {
-        field(1; "Code"; Code[20]){Caption = 'Code';}
-        field(2; "Description"; Text[50]){Caption = 'Description';}
+        field(1; "Code"; Code[20]) { Caption = 'Code'; }
+        field(2; "Description"; Text[50]) { Caption = 'Description'; }
         field(3; "Percentage Increase"; Decimal)
         {
             Caption = 'Percentage Inc';
@@ -20,7 +20,7 @@ table 50161 Index
                 RecalculateIndexValues();
             end;
         }
-        field(5; "End Year";Integer)
+        field(5; "End Year"; Integer)
         {
             Caption = 'End Year';
             trigger OnValidate()
@@ -29,15 +29,15 @@ table 50161 Index
             end;
         }
     }
-    keys{key(PK; Code){Clustered = true;}}
+    keys { key(PK; Code) { Clustered = true; } }
     local procedure RecalculateIndexValues()
     var
-        IndexListPartRec: Record IndexCalc;
+        IndexListPartRec: Record Zyn_IndexCalculations;
         CurValue: Decimal;
         YearCounter: Integer;
         EntryNo: Integer;
     begin
-        
+
         if ("Start Year" = 0) or ("End Year" = 0) or ("Percentage Increase" = 0) then
             exit;
         IndexListPartRec.Reset();
@@ -57,16 +57,16 @@ table 50161 Index
             CurValue := CurValue + (CurValue * "Percentage Increase" / 100);
         end;
     end;
+
     trigger OnDelete()
     var
-       
-        ChildRec: Record IndexCalc;
+
+        ChildRec: Record Zyn_IndexCalculations;
     begin
         ChildRec.Reset();
         ChildRec.SetRange(Code, Code);
         if ChildRec.FindSet() then
             ChildRec.DeleteAll();
-        
+
     end;
 }
- 

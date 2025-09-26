@@ -1,4 +1,4 @@
-table 50172 Income
+table 50172 Zyn_Income
 {
     DataClassification = ToBeClassified;
 
@@ -11,7 +11,7 @@ table 50172 Income
         field(5; Category; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = IncomeCat.Name;
+            TableRelation = Zyn_IncomeCategory.Name;
         }
     }
 

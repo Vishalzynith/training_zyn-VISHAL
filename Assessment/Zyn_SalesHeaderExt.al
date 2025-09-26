@@ -1,5 +1,5 @@
 //assessment lines 47-52
-tableextension 50139 SalesHeaderExt extends "Sales Header"
+tableextension 50139 Zyn_SalesHeaderExt extends "Sales Header"
 {
     fields
     {
@@ -32,7 +32,7 @@ tableextension 50139 SalesHeaderExt extends "Sales Header"
         {
             Caption = 'Last Sold Price';
             FieldClass = FlowField;
-            CalcFormula = Max("LastSoldPrice".ItemPrice WHERE(CustomerNo = FIELD("Sell-to Customer No."), PostingDate = FIELD("Latest Posting Date")));
+            CalcFormula = Max(Zyn_LastSoldPrice.ItemPrice WHERE(CustomerNo = FIELD("Sell-to Customer No."), PostingDate = FIELD("Latest Posting Date")));
             Editable = false;
         }
 
@@ -40,7 +40,7 @@ tableextension 50139 SalesHeaderExt extends "Sales Header"
         {
             Caption = 'Latest Posting Date';
             FieldClass = FlowField;
-            CalcFormula = Max("LastSoldPrice".PostingDate WHERE(CustomerNo = FIELD("Sell-to Customer No.")));
+            CalcFormula = Max(Zyn_LastSoldPrice.PostingDate WHERE(CustomerNo = FIELD("Sell-to Customer No.")));
             Editable = false;
         }
 
@@ -54,7 +54,7 @@ tableextension 50139 SalesHeaderExt extends "Sales Header"
     }
     trigger OnAfterDelete()
     var
-        SubpageextRec: Record Subpageext;
+        SubpageextRec: Record Zyn_SubpageExtension;
     begin
         SubpageextRec.SetRange("Document Type", Rec."Document Type");
         SubpageextRec.SetRange("No.", Rec."No.");

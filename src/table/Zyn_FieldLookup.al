@@ -1,5 +1,5 @@
 
-table 50111 "Field Lookup Buffer"
+table 50111 Zyn_FieldLookupBuffer
 {
     DataClassification = ToBeClassified;
 

@@ -1,4 +1,4 @@
-page 50143 "Linking List Part"
+page 50143 Zyn_SalesHeaderListPart
 {
     PageType = ListPart;
     SourceTable = "Sales Header";
@@ -13,7 +13,6 @@ page 50143 "Linking List Part"
             {
                 field("No."; Rec."No.")
                 {
-                    ApplicationArea = All;
                     trigger OnDrillDown()
                     begin
                         case Rec."Document Type" of
@@ -28,15 +27,11 @@ page 50143 "Linking List Part"
                 }
                 field("Sell to Customer No"; Rec."Sell-to Customer No.")
                 {
-                    ApplicationArea = All;
                 }
                 field("Sell to Customer Name"; Rec."Sell-to Customer Name")
                 {
-                    ApplicationArea = All;
                 }
-
             }
-
         }
     }
 }

@@ -1,10 +1,10 @@
 //Lines 26,27 : Subscription Notification Task
-page 50211 SubscriptionList
+page 50211 Zyn_SubscriptionList
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = Subscription;
+    SourceTable = Zyn_Subscription;
     CardPageId = 50212;
     //Editable=false;
     InsertAllowed = false;
@@ -15,16 +15,16 @@ page 50211 SubscriptionList
         {
             repeater(SubscriptionList)
             {
-                field(SubID;Rec.SubID) { ApplicationArea = All; }
-                field(CustomerID;Rec.CustomerID) { ApplicationArea = All; }
-                field(PlanID;Rec.PlanID){ApplicationArea=All;}
-                field(StartDate;Rec.StartDate){ApplicationArea=All;}
-                field(Duration;Rec.Duration){ApplicationArea=All;}
-                field(EndDate;Rec.EndDate){ApplicationArea=All;}
-                field(Status;Rec.Status){ApplicationArea=All;}
-                field(NextBilling;Rec.NextBilling){ApplicationArea=All;}
-                field("Next Renewal Date";Rec."Next Renewal Date"){ApplicationArea=All;}
-                field("Reminder Sent";Rec."Reminder Sent"){ApplicationArea=All;}
+                field(SubID; Rec.SubID) { ApplicationArea = All; }
+                field(CustomerID; Rec.CustomerID) { ApplicationArea = All; }
+                field(PlanID; Rec.PlanID) { ApplicationArea = All; }
+                field(StartDate; Rec.StartDate) { ApplicationArea = All; }
+                field(Duration; Rec.Duration) { ApplicationArea = All; }
+                field(EndDate; Rec.EndDate) { ApplicationArea = All; }
+                field(Status; Rec.Status) { ApplicationArea = All; }
+                field(NextBilling; Rec.NextBilling) { ApplicationArea = All; }
+                field("Next Renewal Date"; Rec."Next Renewal Date") { ApplicationArea = All; }
+                field("Reminder Sent"; Rec."Reminder Sent") { ApplicationArea = All; }
             }
         }
     }

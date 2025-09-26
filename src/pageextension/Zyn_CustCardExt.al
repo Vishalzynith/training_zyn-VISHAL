@@ -1,5 +1,5 @@
 
-pageextension 50111 CustomerCard1Ext extends "Customer Card"
+pageextension 50111 Zyn_CustomerCardExt extends "Customer Card"
 {
     layout
     {
@@ -7,36 +7,36 @@ pageextension 50111 CustomerCard1Ext extends "Customer Card"
         {
             field("Credits Allowed"; Rec."Credits Allowed")
             {
-                ApplicationArea = All;
+                Caption = 'Credits Allowed';
             }
             field("Credits Used"; Rec."Credits Used")
             {
-                ApplicationArea = All;
+                Caption = 'Credits Used';
                 Editable = false;
             }
             field("Sales Year"; Rec."Sales Year")
             {
-                ApplicationArea = All;
+                Caption = 'Sales Year';
             }
             field("Loyalty Points Used"; Rec."Loyalty Points Used")
             {
-                ApplicationArea = All;
+                Caption = 'Loyalty Points Used';
                 Editable = false;
             }
             field("Loyalty Points Allowed"; Rec."Loyalty Points Allowed")
             {
-                ApplicationArea = All;
+                Caption = 'Loyalty Points Allowed';
             }
 
         }
         addlast(factboxes)
         {
-            part(OpenDocsFactBox; "Customer Open Docs FactBox")
+            part(OpenDocsFactBox; Zyn_CustomerOpenDocsFactBox)
             {
                 SubPageLink = "No." = field("No.");
                 ApplicationArea = All;
             }
-            part(ContactFactBox; "Customer Contact FactBox")
+            part(ContactFactBox; Zyn_CustomerContactFactBox)
             {
                 SubPageLink = "No." = field("No.");
                 ApplicationArea = All;
@@ -53,7 +53,7 @@ pageextension 50111 CustomerCard1Ext extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Modify Log';
                 Image = Edit;
-                RunObject = page "Modify Log List";
+                RunObject = page Zyn_ModifyLogList;
                 RunPageLink = "Customer No" = field("No.");
             }
             action(Problems)
@@ -61,7 +61,7 @@ pageextension 50111 CustomerCard1Ext extends "Customer Card"
                 ApplicationArea = All;
                 Caption = 'Problems & Queries';
                 Image = Questionaire;
-                RunObject = page "Problem List";
+                RunObject = page Zyn_ProblemList;
                 RunPageLink = "Customer No." = field("No.");
             }
         }
@@ -80,15 +80,15 @@ pageextension 50111 CustomerCard1Ext extends "Customer Card"
     begin
         if IsNewCustomer and (Rec.Name = '') then begin
             Message('Please enter a customer name before closing the page.');
-            exit(false); 
+            exit(false);
         end;
 
-        exit(true); 
+        exit(true);
     end;
 
     trigger OnClosePage()
     var
-        Publisher: Codeunit compchangepublisher;
+        Publisher: Codeunit Zyn_CompanyChangePublisher;
     begin
         if IsNewCustomer and (Rec.Name <> '') then
             Publisher.OnaddCustomerCreated(Rec);

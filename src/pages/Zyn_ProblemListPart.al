@@ -1,11 +1,10 @@
-page 50123 "Problem List Part"
+page 50123 Zyn_ProblemListPart
 {
     PageType = ListPart;
-    SourceTable = Problems;
+    SourceTable = Zyn_Problems;
     ApplicationArea = All;
     InsertAllowed = false;
     Editable = false;
-
     layout
     {
         area(Content)
@@ -14,34 +13,28 @@ page 50123 "Problem List Part"
             {
                 field("Customer No."; Rec."Customer No.")
                 {
-                    ApplicationArea = All;
                 }
                 field("Customer Name"; CustomerName)
                 {
-                    ApplicationArea = All;
                 }
                 field("Problem Description"; Rec.Problem)
                 {
-                    ApplicationArea = All;
                 }
                 field("Date"; Rec.Date)
                 {
-                    ApplicationArea = All;
                 }
             }
         }
     }
-
     var
-        CustomerRec: Record Customer;
+        CustomerRecord: Record Customer;
         CustomerNo: Code[20];
         CustomerName: Text[100];
-
     trigger OnAfterGetRecord()
     begin
         CustomerNo := Rec."Customer No.";
-        if CustomerRec.Get(CustomerNo) then
-            CustomerName := CustomerRec.Name
+        if CustomerRecord.Get(CustomerNo) then
+            CustomerName := CustomerRecord.Name
         else
             CustomerName := '';
     end;

@@ -1,8 +1,8 @@
-page 50202 AssetCard
+page 50202 Zyn_AssetCard
 {
     PageType = Card;
     ApplicationArea = All;
-    SourceTable = Assets;
+    SourceTable = Zyn_Assets;
 
     layout
     {
@@ -10,31 +10,29 @@ page 50202 AssetCard
         {
             group(AssetCard)
             {
-                field(AssetType; Rec.AssetType) 
-                { 
-                    ApplicationArea = All; 
+                field(AssetType; Rec.AssetType)
+                {
+                    Caption='Asset Type';
                 }
-                field(SerialNo; Rec.SerialNo) 
-                { 
-                    ApplicationArea = All; 
+                field(SerialNo; Rec.SerialNo)
+                {
+                    Caption='Serial No.';
                 }
-                field(ProcurredDate; Rec.ProcurredDate) 
-                { 
-                    ApplicationArea = All; 
+                field(ProcurredDate; Rec.ProcurredDate)
+                {
+                    Caption='Procurred Date';
                 }
-                field(Vendor; Rec.Vendor) 
-                { 
-                    ApplicationArea = All; 
+                field(Vendor; Rec.Vendor)
+                {
+                    Caption='Vendor';
                 }
-                field(Available; Rec.Available) 
-                { 
-                    ApplicationArea = All; 
-                
+                field(Available; Rec.Available)
+                {
+                    Caption='Avaialable';
                 }
             }
         }
     }
-
     trigger OnAfterGetRecord()
     begin
         Rec.UpdateAvailability();

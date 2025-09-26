@@ -1,12 +1,11 @@
-page 50277 "Leave Cat card"
+page 50277 Zyn_LeaveCategoryCard
 {
     Caption = 'Leave Category Card';
     PageType = Card;
-    SourceTable = "leave Category";
+    SourceTable = Zyn_LeaveCategory;
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = true;
- 
     layout
     {
         area(content)
@@ -15,18 +14,14 @@ page 50277 "Leave Cat card"
             {
                 field("No."; Rec."category name")
                 {
-                    ApplicationArea = All;
                 }
                 field(Description; Rec."Leave Description")
                 {
-                    ApplicationArea = All;
                 }
-               
                 field("Max Leave Days"; Rec."NO.of days allowed")
                 {
-                    ApplicationArea = All;
+                }
             }
         }
     }
-}
 }

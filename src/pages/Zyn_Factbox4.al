@@ -1,10 +1,9 @@
-page 50375 "Assigned Assets Factbox"
+page 50375 Zyn_AssignedAssetsFactbox
 {
     Caption = 'Assigned Assets';
     PageType = CardPart;
-    SourceTable = "Employ Table"; // Employee table
+    SourceTable = Zyn_Employee; // Employee table
     ApplicationArea = All;
-
     layout
     {
         area(content)
@@ -13,11 +12,10 @@ page 50375 "Assigned Assets Factbox"
             {
                 field("Assigned Asset Count"; Rec."Assigned Asset Count")
                 {
-                    ApplicationArea = All;
-
+                    Caption = 'Assigned Asset Count';
                     trigger OnDrillDown()
                     var
-                        EmpAssetRec: Record EmpAssets;
+                        EmpAssetRec: Record Zyn_EmpAssets;
                         EmpAssetList: Page "Zyn_EmpAssetList";
                     begin
                         EmpAssetRec.Reset();
@@ -28,10 +26,11 @@ page 50375 "Assigned Assets Factbox"
                             EmpAssetList.SetTableView(EmpAssetRec);
                             EmpAssetList.Run();
                         end else
-                            Message('No assigned assets for employee %1.', Rec."Emp Id.");
+                            Message(AssignedCountMsg,Rec."Emp Id.");
                     end;
                 }
             }
         }
     }
+    var AssignedCountMsg: Label 'No assigned assets for employee %1.';
 }

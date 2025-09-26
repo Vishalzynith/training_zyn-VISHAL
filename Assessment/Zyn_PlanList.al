@@ -1,9 +1,9 @@
-page 50208 PlanList
+page 50208 Zyn_PlanList
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = Plans;
+    SourceTable = Zyn_Plans;
     CardPageId = 50210;
     //Editable=false;
     InsertAllowed = false;
@@ -14,10 +14,10 @@ page 50208 PlanList
         {
             repeater(PlanList)
             {
-                field(PlanID;Rec.PlanID) { ApplicationArea = All; }
-                field(Name;Rec.Name) { ApplicationArea = All; }
-                field(Fee;Rec.Fee){ApplicationArea=All;}
-                field(Status;Rec.Status){ApplicationArea=All;}
+                field(PlanID; Rec.PlanID) { ApplicationArea = All; }
+                field(Name; Rec.Name) { ApplicationArea = All; }
+                field(Fee; Rec.Fee) { ApplicationArea = All; }
+                field(Status; Rec.Status) { ApplicationArea = All; }
             }
         }
     }

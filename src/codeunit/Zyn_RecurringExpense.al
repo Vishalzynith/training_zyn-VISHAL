@@ -1,41 +1,42 @@
-codeunit 50188 "Recurring Expense Processor"
+codeunit 50188 Zyn_RecurringExpenseProcessor
 {
     Subtype = Normal;
     trigger OnRun()
     begin
         ProcessRecurringExpenses();
     end;
+
     local procedure ProcessRecurringExpenses()
     var
-        RecExp: Record RecurringExpense;
-        Exp: Record Expense;
+        RecurringExpense: Record Zyn_RecurringExpense;
+        Expense: Record Zyn_Expense;
     begin
-        RecExp.Reset();
-        if RecExp.FindSet() then
+        RecurringExpense.Reset();
+        if RecurringExpense.FindSet() then
             repeat
-                if (RecExp.NextCycle <> 0D) and (RecExp.NextCycle <= WorkDate()) then begin
-                    Exp.Init();
-                    Exp.ExpenseID := GetNextExpenseID();
-                    Exp.Description := 'Recurring Expense - ' + RecExp.Category;
-                    
-                    Exp.Validate(Category, RecExp.Category);
-                    Exp.Validate("Date", RecExp.NextCycle);
-                    Exp.Validate(Amount, RecExp.Amount);
+                if (RecurringExpense.NextCycle <> 0D) and (RecurringExpense.NextCycle <= WorkDate()) then begin
+                    Expense.Init();
+                    Expense.ExpenseID := GetNextExpenseID();
+                    Expense.Description := 'Recurring Expense - ' + RecurringExpense.Category;
 
-                    Exp.Insert(true);
+                    Expense.Validate(Category, RecurringExpense.Category);
+                    Expense.Validate("Date", RecurringExpense.NextCycle);
+                    Expense.Validate(Amount, RecurringExpense.Amount);
 
-                    RecExp.NextCycle := RecExp.GetNextCycleDate(RecExp.NextCycle, RecExp.Cycle);
-                    RecExp.Modify(true);
+                    Expense.Insert(true);
+
+                    RecurringExpense.NextCycle := RecurringExpense.GetNextCycleDate(RecurringExpense.NextCycle, RecurringExpense.Cycle);
+                    RecurringExpense.Modify(true);
                 end;
-            until RecExp.Next() = 0;
+            until RecurringExpense.Next() = 0;
     end;
 
     local procedure GetNextExpenseID(): Integer
     var
-        Exp: Record Expense;
+        Expense: Record Zyn_Expense;
     begin
-        if Exp.FindLast() then
-            exit(Exp.ExpenseID + 1)
+        if Expense.FindLast() then
+            exit(Expense.ExpenseID + 1)
         else
             exit(1);
     end;

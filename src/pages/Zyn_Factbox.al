@@ -1,11 +1,10 @@
-page 50159 "Customer Open Docs FactBox"
+page 50159 Zyn_CustomerOpenDocsFactBox
 {
-    PageType = CardPart; 
-    SourceTable = Customer; 
+    PageType = CardPart;
+    SourceTable = Customer;
     ApplicationArea = All;
     Caption = 'Open Documents';
     Editable = false;
- 
     layout
     {
         area(content)
@@ -15,9 +14,8 @@ page 50159 "Customer Open Docs FactBox"
                 field(OpenSalesInvoices; OpenSalesInvoices)
                 {
                     Caption = 'Open Sales Invoices';
-                    ApplicationArea = All;
                     DrillDown = true;
- 
+
                     trigger OnDrillDown()
                     var
                         SalesInvoice: Record "Sales Header";
@@ -28,13 +26,12 @@ page 50159 "Customer Open Docs FactBox"
                         Page.Run(Page::"Sales Invoice List", SalesInvoice);
                     end;
                 }
- 
+
                 field(OpenSalesOrders; OpenSalesOrders)
                 {
                     Caption = 'Open Sales Orders';
-                    ApplicationArea = All;
                     DrillDown = true;
- 
+
                     trigger OnDrillDown()
                     var
                         SalesOrder: Record "Sales Header";
@@ -48,11 +45,9 @@ page 50159 "Customer Open Docs FactBox"
             }
         }
     }
- 
     var
         OpenSalesInvoices: Integer;
         OpenSalesOrders: Integer;
- 
     trigger OnAfterGetRecord()
     var
         SalesHeader: Record "Sales Header";
@@ -62,7 +57,7 @@ page 50159 "Customer Open Docs FactBox"
         SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Invoice);
         SalesHeader.SetRange(Status, SalesHeader.Status::Open);
         OpenSalesInvoices := SalesHeader.Count();
- 
+
         SalesHeader.Reset();
         SalesHeader.SetRange("Sell-to Customer No.", Rec."No.");
         SalesHeader.SetRange("Document Type", SalesHeader."Document Type"::Order);
@@ -70,4 +65,3 @@ page 50159 "Customer Open Docs FactBox"
         OpenSalesOrders := SalesHeader.Count();
     end;
 }
- 

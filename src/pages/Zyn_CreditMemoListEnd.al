@@ -3,7 +3,7 @@ page 50149 Zyn_EndListPart
     PageType = ListPart;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = Subpageext;
+    SourceTable = Zyn_SubpageExtension;
 
     layout
     {
@@ -13,31 +13,31 @@ page 50149 Zyn_EndListPart
             {
                 field("Language code"; Rec."Language code")
                 {
-                    ApplicationArea = All;
+                    Caption = 'Language Code';
                 }
                 field("Description"; Rec."Description")
                 {
-                    ApplicationArea = All;
+                    Caption = 'Description';
                 }
                 field("Text"; Rec."Text")
                 {
-                    ApplicationArea = All;
+                    Caption = 'Text';
                 }
                 field("Document type"; Rec."Document Type")
                 {
-                    ApplicationArea = All;
+                    Caption = 'Document Type';
                 }
                 field("Bold"; Rec."Bold")
                 {
-                    ApplicationArea = All;
+                    Caption = 'Bold';
                 }
                 field("Italics"; Rec."Italics")
                 {
-                    ApplicationArea = All;
+                    Caption = 'Italics';
                 }
                 field("Underline"; Rec.Underlined)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Underline';
                 }
             }
         }

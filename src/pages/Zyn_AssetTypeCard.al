@@ -1,8 +1,8 @@
-page 50200 AssetTypeCard
+page 50200 Zyn_AssetTypeCard
 {
     PageType = Card;
     ApplicationArea = All;
-    SourceTable = AssetType;
+    SourceTable = Zyn_AssetType;
 
     layout
     {
@@ -10,8 +10,14 @@ page 50200 AssetTypeCard
         {
             group(AssetTypeCard)
             {
-                field(Category; Rec.Category) { ApplicationArea = All; }
-                field(Name;Rec.Name) { ApplicationArea = All; }
+                field(Category; Rec.Category)
+                {
+                    Caption = 'Category';
+                }
+                field(Name; Rec.Name)
+                {
+                    Caption = 'Name';
+                }
             }
         }
     }

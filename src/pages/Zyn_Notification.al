@@ -1,9 +1,9 @@
-page 50197 "My Notification Part"
+page 50197 Zyn_NotificationCardPart
 {
     PageType = CardPart;
     ApplicationArea = All;
     UsageCategory = None;
-    SourceTable = "User Setup"; 
+    SourceTable = "User Setup";
     layout
     {
         area(content)
@@ -12,15 +12,14 @@ page 50197 "My Notification Part"
             {
                 field(UserID; UserId())
                 {
-                    ApplicationArea = All;
                 }
             }
         }
     }
     trigger OnOpenPage();
     var
-        NotificationMgt: Codeunit "My Notification Mgt.";
+        NotificationManagement: Codeunit Zyn_NotificationManagement;
     begin
-        NotificationMgt.ShowNoti();
+        NotificationManagement.ShowNoti();
     end;
 }

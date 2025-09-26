@@ -1,9 +1,8 @@
-page 50167 ExpenseCard
+page 50167 Zyn_ExpenseCard
 {
     PageType = Card;
     ApplicationArea = All;
-    SourceTable = Expense;
-
+    SourceTable = Zyn_Expense;
     layout
     {
         area(Content)
@@ -12,16 +11,12 @@ page 50167 ExpenseCard
             {
                 field(ExpenseID; Rec.ExpenseID)
                 {
-                    ApplicationArea = All;
                 }
                 field(Description; Rec.Description)
                 {
-                    ApplicationArea = All;
                 }
-
                 field(Category; Rec.Category)
                 {
-                    ApplicationArea = All;
                     Caption = 'Category';
 
                     trigger OnValidate()
@@ -32,14 +27,11 @@ page 50167 ExpenseCard
                 }
                 field(RemainingBudget; RemainingBudgetTxt)
                 {
-                    ApplicationArea = All;
                     Editable = false;
                 }
 
                 field(Amount; Rec.Amount)
                 {
-                    ApplicationArea = All;
-
                     trigger OnValidate()
                     var
                         Remaining: Decimal;
@@ -55,8 +47,6 @@ page 50167 ExpenseCard
 
                 field(Date; Rec.Date)
                 {
-                    ApplicationArea = All;
-
                     trigger OnValidate()
                     begin
                         RemainingBudgetTxt := Format(Rec.RemainingBudget());
@@ -66,7 +56,6 @@ page 50167 ExpenseCard
             }
         }
     }
-
     var
         RemainingBudgetTxt: Text[50];
 

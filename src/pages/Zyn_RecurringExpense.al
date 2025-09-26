@@ -1,37 +1,34 @@
-page 50189 RecurringExpense
+page 50189 Zyn_RecurringExpense
 {
     PageType = List;
     ApplicationArea = All;
+    Caption = 'Recurring Expense';
     UsageCategory = Lists;
-    SourceTable = RecurringExpense;
-    
+    SourceTable = Zyn_RecurringExpense;
     layout
     {
         area(Content)
         {
             repeater(RecurringList)
             {
-                field(RecExpID;Rec.RecExpID) { ApplicationArea = All; }
-                field(Category;Rec.Category) { ApplicationArea = All; }
-                field(Amount; Rec.Amount) { ApplicationArea = All; }
-                field(StartDate;Rec.StartDate) { ApplicationArea = All; }
-                field(Cycle;Rec.Cycle) { ApplicationArea = All; }
-                field(NextCycle;Rec.NextCycle){ApplicationArea=All;}
-            }
-        }
-    }
-    
-    actions
-    {
-        area(Processing)
-        {
-            action(ActionName)
-            {
-                
-                trigger OnAction()
-                begin
-                    
-                end;
+                field(RecExpID; Rec.RecExpID)
+                {
+                }
+                field(Category; Rec.Category)
+                {
+                }
+                field(Amount; Rec.Amount)
+                {
+                }
+                field(StartDate; Rec.StartDate)
+                {
+                }
+                field(Cycle; Rec.Cycle)
+                {
+                }
+                field(NextCycle; Rec.NextCycle)
+                {
+                }
             }
         }
     }

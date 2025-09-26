@@ -1,12 +1,11 @@
-page 50101 "Field Lookup Buffer Page"
+page 50101 Zyn_FieldLookupBufferPage
 {
     PageType = List;
-    SourceTable = "Field Lookup Buffer";
+    SourceTable = Zyn_FieldLookupBuffer;
     SourceTableTemporary = true;
     ApplicationArea = All;
     UsageCategory = None;
     Editable = false;
-
     layout
     {
         area(content)
@@ -15,7 +14,6 @@ page 50101 "Field Lookup Buffer Page"
             {
                 field("FieldName"; Rec."Field Name")
                 {
-                    ApplicationArea = All;
                     Caption = 'Field Name';
                 }
             }

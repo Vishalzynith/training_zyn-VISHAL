@@ -1,4 +1,4 @@
-report 50161 "Sales Invoice RDLC"
+report 50161 Zyn_SalesInvoiceRDLC
 {
     Caption = 'Sales Invoice RDLC';
     UsageCategory = ReportsAndAnalysis;
@@ -40,10 +40,10 @@ report 50161 "Sales Invoice RDLC"
                 }
 
 
-                dataitem("Begintextcode"; Subpageext)
+                dataitem("Begintextcode"; Zyn_SubpageExtension)
                 {
                     DataItemLinkReference = "SalesHeader";
-                    DataItemTableView = sorting("No.", "Line No.") WHERE(Selection = CONST(BeginEndEnum::"Begin"));
+                    DataItemTableView = sorting("No.", "Line No.") WHERE(Selection = CONST(Zyn_BeginEndEnum::"Begin"));
 
                     DataItemLink = "No." = field("No.");
                     column("Begin"; text)
@@ -51,10 +51,10 @@ report 50161 "Sales Invoice RDLC"
                         IncludeCaption = true;
                     }
                 }
-                dataitem("Endtextcode"; Subpageext)
+                dataitem("Endtextcode"; Zyn_SubpageExtension)
                 {
                     DataItemLinkReference = "SalesHeader";
-                    DataItemTableView = sorting("No.", "Line No.") WHERE(Selection = CONST(BeginEndEnum::"End"));
+                    DataItemTableView = sorting("No.", "Line No.") WHERE(Selection = CONST(Zyn_BeginEndEnum::"End"));
 
                     DataItemLink = "No." = field("No.");
                     column("End"; text)

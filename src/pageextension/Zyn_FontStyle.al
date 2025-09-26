@@ -14,7 +14,6 @@ pageextension 50138 ExtendedTextLine extends "Extended Text Lines"
             }
             field("Underline"; Rec.Underline)
             {
-                ApplicationArea = All;
             }
         }
     }

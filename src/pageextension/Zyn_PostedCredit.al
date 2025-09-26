@@ -9,7 +9,7 @@ pageextension 50136 "Zyn_CreditPostedInvoiceExt" extends "Posted Sales Credit Me
                 ApplicationArea = All;
                 SubPageLink =
                               "No." = field("No."),
-                              selection = const(BeginEndEnum::"Begin");
+                              selection = const(Zyn_BeginEndEnum::"Begin");
                 Editable = false;
             }
             part("Credit End Text Part"; Zyn_EndListPart)
@@ -17,7 +17,7 @@ pageextension 50136 "Zyn_CreditPostedInvoiceExt" extends "Posted Sales Credit Me
                 ApplicationArea = All;
                 SubPageLink =
                             "No." = field("No."),
-                            selection = const(BeginEndEnum::"End");
+                            selection = const(Zyn_BeginEndEnum::"End");
                 Editable = false;
             }
         }

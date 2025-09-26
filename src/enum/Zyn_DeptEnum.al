@@ -1,4 +1,4 @@
-enum 50140 "Department Enum"
+enum 50140 Zyn_DepartmentEnum
 {
     value(0; "Hardware")
     {

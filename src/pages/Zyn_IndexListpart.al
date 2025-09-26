@@ -1,8 +1,8 @@
-page 50165 IndexListPart
+page 50165 Zyn_IndexListPart
 {
     PageType = Listpart;
     ApplicationArea = All;
-    SourceTable = IndexCalc;
+    SourceTable = Zyn_IndexCalculations;
     Editable = false;
     layout
     {
@@ -10,10 +10,13 @@ page 50165 IndexListPart
         {
             repeater(GroupName)
             {
-                field(year; Rec.Year) { ApplicationArea = All; }
-                field(Value; Rec.Value) { ApplicationArea = All; }
+                field(year; Rec.Year)
+                {
+                }
+                field(Value; Rec.Value)
+                {
+                }
             }
         }
-
     }
 }

@@ -1,8 +1,15 @@
-enum 50154 Category
+enum 50154 Zyn_Category
 {
-    Extensible = true;
-    
-    value(1;SickLeave){Caption='Sick Leave';}
-    value(2;CasualLeave){Caption='Casual Leave';}
-    value(3;None){Caption='';}
+    value(1; SickLeave)
+    {
+        Caption = 'Sick Leave';
+    }
+    value(2; CasualLeave)
+    {
+        Caption = 'Casual Leave';
+    }
+    value(3; None)
+    {
+        Caption = '';
+    }
 }

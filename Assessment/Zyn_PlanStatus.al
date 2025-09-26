@@ -1,11 +1,5 @@
-enum 50167 PlanEnum
-{   
-    value(0;Active){}
-    value(1;Inactive){}
-}
-enum 50168 SubEnum
+enum 50167 Zyn_PlanEnum
 {
-    value(0;Active){}
-    value(1;Inactive){}
-    value(2;Expired){}
+    value(0; Active) { }
+    value(1; Inactive) { }
 }

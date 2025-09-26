@@ -1,9 +1,9 @@
-page 50201 AssetList
+page 50201 Zyn_AssetList
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = Assets;
+    SourceTable = Zyn_Assets;
     CardPageId = 50202;
     //Editable=false;
     InsertAllowed = false;
@@ -14,11 +14,26 @@ page 50201 AssetList
         {
             repeater(AssetsList)
             {
-                field(AssetType;Rec.AssetType) { ApplicationArea = All; }
-                field(SerialNo;Rec.SerialNo) { ApplicationArea = All; }
-                field(ProcurredDate;Rec.ProcurredDate){ApplicationArea=All;}
-                field(Vendor;Rec.Vendor){ApplicationArea=All;}
-                field(Available;Rec.Available){ApplicationArea=All;}
+               field(AssetType; Rec.AssetType)
+                {
+                    Caption='Asset Type';
+                }
+                field(SerialNo; Rec.SerialNo)
+                {
+                    Caption='Serial No.';
+                }
+                field(ProcurredDate; Rec.ProcurredDate)
+                {
+                    Caption='Procurred Date';
+                }
+                field(Vendor; Rec.Vendor)
+                {
+                    Caption='Vendor';
+                }
+                field(Available; Rec.Available)
+                {
+                    Caption='Avaialable';
+                }
             }
         }
     }

@@ -1,8 +1,8 @@
-page 50168 ExpenseCat
+page 50168 Zyn_ExpenseCategory
 {
-    PageType = List;
     ApplicationArea = All;
-    SourceTable = ExpenseCat;
+    PageType = List;
+    SourceTable = Zyn_Expense_Category;
     Editable = false;
     InsertAllowed = false;
     ModifyAllowed = false;
@@ -13,24 +13,32 @@ page 50168 ExpenseCat
         {
             repeater(ExpenseList)
             {
-                field(CategoryNo; Rec.CategoryNo) { ApplicationArea = All; }
-                field(Name; Rec.Name) { ApplicationArea = All; }
-                field(Description; Rec.Description) { ApplicationArea = All; }
+                field(CategoryNo; Rec.CategoryNo)
+                {
+                    Caption = 'Category No.';
+                }
+                field(Name; Rec.Name)
+                {
+                    Caption = 'Category Name';
+                }
+                field(Description; Rec.Description)
+                {
+                    Caption = 'Description';
+                }
             }
         }
         area(FactBoxes)
         {
-            part(ExpenseCatStatsFactbox; ExpenseCatStatsFactbox)
+            part(ExpenseCatStatsFactbox; Zyn_ExpenseCategoryFactbox)
             {
                 ApplicationArea = All;
                 SubPageLink = Name = field(Name);
             }
-            part(BudgetCatStatsFactbox; BudgetCatStatsFactbox)
+            part(BudgetCatStatsFactbox; Zyn_BudgetCategoryFactbox)
             {
                 ApplicationArea = All;
                 SubPageLink = Name = field(Name);
             }
         }
-
     }
 }

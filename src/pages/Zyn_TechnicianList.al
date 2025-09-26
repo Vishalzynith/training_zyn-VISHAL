@@ -1,7 +1,7 @@
-page 50135 "Technician List"
+page 50135 Zyn_TechnicianList
 {
     PageType = List;
-    SourceTable = Technician;
+    SourceTable = Zyn_Technician;
     ApplicationArea = All;
     InsertAllowed = true;
     Editable = true;
@@ -13,27 +13,21 @@ page 50135 "Technician List"
             {
                 field("ID"; Rec.ID)
                 {
-                    ApplicationArea = All;
                 }
                 field("Name"; Rec.Name)
                 {
-                    ApplicationArea = All;
                 }
                 field("Phone No"; Rec."Phone No.")
                 {
-                    ApplicationArea = All;
                 }
                 field("Dept"; Rec.Dept)
                 {
-                    ApplicationArea = All;
                 }
                 field("Problem Count"; Rec."Problem Count")
                 {
-                    ApplicationArea = All;
                 }
-
             }
-            part(ProblemList; "Problem List Part")
+            part(ProblemList; Zyn_ProblemListPart)
             {
                 ApplicationArea = All;
                 SubPageLink = Technician = field(ID);

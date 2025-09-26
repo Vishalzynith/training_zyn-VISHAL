@@ -1,9 +1,9 @@
-page 50166 ExpenseList
+page 50166 Zyn_ExpenseList
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = Expense;
+    SourceTable = Zyn_Expense;
     CardPageId = 50167;
     //Editable=false;
     InsertAllowed = false;
@@ -14,23 +14,30 @@ page 50166 ExpenseList
         {
             repeater(ExpenseList)
             {
-                field(ExpenseID; Rec.ExpenseID) { ApplicationArea = All; }
-                field(Description; Rec.Description) { ApplicationArea = All; }
-                field(Amount; Rec.Amount) { ApplicationArea = All; }
-                field(Category; Rec.Category) { ApplicationArea = All; }
-                field(Date; Rec.Date) { ApplicationArea = All; }
+                field(ExpenseID; Rec.ExpenseID)
+                {
+                }
+                field(Description; Rec.Description)
+                {
+                }
+                field(Amount; Rec.Amount)
+                {
+                }
+                field(Category; Rec.Category)
+                {
+                }
+                field(Date; Rec.Date)
+                {
+                }
             }
         }
         area(FactBoxes)
         {
-            part(BudgetListFactbox; BudgetListPart)
+            part(BudgetListFactbox; Zyn_BudgetListPart)
             {
                 ApplicationArea = All;
             }
-            
         }
-
-
     }
     actions
     {
@@ -40,19 +47,19 @@ page 50166 ExpenseList
             {
                 ApplicationArea = All;
                 Caption = 'SelectCategory';
-                RunObject = page "ExpenseCat";
+                RunObject = page Zyn_ExpenseCategory;
             }
             action(ExpenseExportFilter)
             {
                 ApplicationArea = All;
                 Caption = 'Export Filtered Expenses';
-                RunObject = report ExpenseFilterPage;
+                RunObject = report Zyn_ExpenseFilterPage;
             }
             action(ExpensevsBudget)
             {
-                ApplicationArea=All;
-                Caption='Expense versus Budget';
-                RunObject=report "Budget vs Expense Report";
+                ApplicationArea = All;
+                Caption = 'Expense versus Budget';
+                RunObject = report Zyn_BudgetvsExpense;
             }
         }
     }

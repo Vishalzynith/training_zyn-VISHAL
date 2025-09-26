@@ -1,23 +1,23 @@
-pageextension 50130 "PostedInvoiceExt" extends "Posted Sales Invoice"
+pageextension 50130 Zyn_PostedInvoiceExt extends "Posted Sales Invoice"
 {
     layout
     {
         addlast(Content)
         {
-            part("Beginning Text Details"; BeginListPart)
+            part("Beginning Text Details"; Zyn_BeginListPart)
             {
                 ApplicationArea = All;
-                SubPageLink = 
+                SubPageLink =
                               "No." = field("No."),
-                              selection = const(BeginEndEnum::"Begin");
+                              selection = const(Zyn_BeginEndEnum::"Begin");
                 Editable = false;
             }
-            part("Ending Text Details"; EndListPart)
+            part("Ending Text Details"; Zyn_EndingTextListPart)
             {
                 ApplicationArea = All;
-                SubPageLink = 
+                SubPageLink =
                             "No." = field("No."),
-                            selection = const(BeginEndEnum::"End");
+                            selection = const(Zyn_BeginEndEnum::"End");
                 Editable = false;
             }
         }

@@ -1,4 +1,4 @@
-table 50278 "LeaveRequest"
+table 50278 Zyn_LeaveRequest
 {
     DataClassification = ToBeClassified;
 
@@ -6,7 +6,7 @@ table 50278 "LeaveRequest"
     {
         field(1; "Request No."; Code[20]) { DataClassification = ToBeClassified; }
         field(2; "Emp Id."; Code[20]) { DataClassification = ToBeClassified; }
-        field(3; "Category"; Enum "category") { DataClassification = ToBeClassified; }
+        field(3; "Category"; Enum Zyn_Category) { DataClassification = ToBeClassified; }
         field(4; "From Date"; Date) { DataClassification = ToBeClassified; }
         field(5; "To Date"; Date) { DataClassification = ToBeClassified; }
         field(6; "No.of days"; Integer) { Editable = false; }
@@ -21,9 +21,9 @@ table 50278 "LeaveRequest"
 
     trigger OnDelete()
     var
-        LeaveLog: Record "Employee Leave Log";
+        LeaveLog: Record Zyn_EmployeeLeaveLog;
     begin
-        
+
         LeaveLog.Reset();
         LeaveLog.SetRange("Emp Id.", "Emp Id.");
         LeaveLog.SetRange(Category, Category);

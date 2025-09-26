@@ -1,4 +1,4 @@
-codeunit 50131 "PostedBeginText"
+codeunit 50131 Zyn_PostedBeginText
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterPostSalesDoc', '', false, false)]
     local procedure OnAfterPostSalesDoc(
@@ -16,7 +16,7 @@ codeunit 50131 "PostedBeginText"
         PreviewMode: Boolean)
     var
         PostedSalesInvoice: Record "Sales Invoice Header";
-        PostedDisp: Record "Standard Text";
+        StandardText: Record "Standard Text";
     begin
         if SalesInvHdrNo <> '' then begin
             if PostedSalesInvoice.Get(SalesInvHdrNo) then
@@ -30,10 +30,10 @@ codeunit 50131 "PostedBeginText"
 
     local procedure BeginToPosted(SalesHeader: Record "Sales Header"; PostedInvoice: Record "Sales Invoice Header")
     var
-        SourceBuffer: Record Subpageext;
-        TargetBuffer: Record Subpageext;
+        SourceBuffer: Record Zyn_SubpageExtension;
+        TargetBuffer: Record Zyn_SubpageExtension;
         NewLineNo: Integer;
-        SelectionType: Enum BeginEndEnum;
+        SelectionType: Enum Zyn_BeginEndEnum;
     begin
         SelectionType := SelectionType::"Begin";
         repeat
@@ -59,19 +59,20 @@ codeunit 50131 "PostedBeginText"
             if SelectionType = SelectionType::"Begin" then
                 SelectionType := SelectionType::"End"
             else
-                exit; 
+                exit;
         until false;
     end;
+
     local procedure ClrUnposted(SalesHeader: Record "Sales Header")
     var
-        SourceBuffer: Record Subpageext;
+        SourceBuffer: Record Zyn_SubpageExtension;
     begin
         SourceBuffer.SetRange("No.", SalesHeader."No.");
         SourceBuffer.SetRange("customer no", SalesHeader."Sell-to Customer No.");
         SourceBuffer.DeleteAll();
     end;
 
-    local procedure GetNextLineNo(Buffer: Record Subpageext; DocNo: Code[20]; CustNo: Code[20]; Sel: Enum BeginEndEnum): Integer
+    local procedure GetNextLineNo(Buffer: Record Zyn_SubpageExtension; DocNo: Code[20]; CustNo: Code[20]; Sel: Enum Zyn_BeginEndEnum): Integer
     var
         MaxLineNo: Integer;
     begin
@@ -86,60 +87,60 @@ codeunit 50131 "PostedBeginText"
 
     local procedure InvTextToPosted(SalesHeader: Record "Sales Header"; PostedInvoice: Record "Sales Invoice Header")
     var
-        StdText: Record "Extended Text Line";
-        Buffer: Record Subpageext;
+        ExtendedTextLine: Record "Extended Text Line";
+        SubPageExtension: Record Zyn_SubpageExtension;
         Customer: Record Customer;
         NewLineNo: Integer;
-        SelectionType: Enum BeginEndEnum;
+        SelectionType: Enum Zyn_BeginEndEnum;
     begin
         if not Customer.Get(SalesHeader."Sell-to Customer No.") then
             exit;
 
         if SalesHeader."Beginning Invoice Text" <> '' then begin
-            StdText.SetRange("No.", SalesHeader."Beginning Invoice Text");
-            StdText.SetRange("Language Code", Customer."Language Code");
+            ExtendedTextLine.SetRange("No.", SalesHeader."Beginning Invoice Text");
+            ExtendedTextLine.SetRange("Language Code", Customer."Language Code");
             SelectionType := SelectionType::"Begin";
-            if StdText.FindSet() then
+            if ExtendedTextLine.FindSet() then
                 repeat
-                    Buffer.Init();
-                    Buffer.Selection := SelectionType;
-                    Buffer."No." := PostedInvoice."No.";
-                    Buffer."customer no" := PostedInvoice."Sell-to Customer No.";
-                    Buffer."Document Type" := SalesHeader."Document Type";
-                    Buffer."Language code" := Customer."Language Code";
-                    Buffer.Description := SalesHeader."Beginning Invoice Text";
-                    Buffer.Text := StdText."Text";
-                    Buffer."Line No." := GetNextLineNo(Buffer, Buffer."No.", Buffer."customer no", Buffer.Selection);
-                    Buffer.Insert(true);
-                until StdText.Next() = 0;
+                    SubPageExtension.Init();
+                    SubPageExtension.Selection := SelectionType;
+                    SubPageExtension."No." := PostedInvoice."No.";
+                    SubPageExtension."customer no" := PostedInvoice."Sell-to Customer No.";
+                    SubPageExtension."Document Type" := SalesHeader."Document Type";
+                    SubPageExtension."Language code" := Customer."Language Code";
+                    SubPageExtension.Description := SalesHeader."Beginning Invoice Text";
+                    SubPageExtension.Text := ExtendedTextLine."Text";
+                    SubPageExtension."Line No." := GetNextLineNo(SubPageExtension, SubPageExtension."No.", SubPageExtension."customer no", SubPageExtension.Selection);
+                    SubPageExtension.Insert(true);
+                until ExtendedTextLine.Next() = 0;
         end;
 
         if SalesHeader."Ending Invoice Text" <> '' then begin
-            StdText.Reset();
-            StdText.SetRange("No.", SalesHeader."Ending Invoice Text");
-            StdText.SetRange("Language Code", Customer."Language Code");
+            ExtendedTextLine.Reset();
+            ExtendedTextLine.SetRange("No.", SalesHeader."Ending Invoice Text");
+            ExtendedTextLine.SetRange("Language Code", Customer."Language Code");
 
             SelectionType := SelectionType::"End";
-            if StdText.FindSet() then
+            if ExtendedTextLine.FindSet() then
                 repeat
-                    Buffer.Init();
-                    Buffer.Selection := SelectionType;
-                    Buffer."No." := PostedInvoice."No.";
-                    Buffer."customer no" := PostedInvoice."Sell-to Customer No.";
-                    //Buffer."Document Type" := SalesHeader."Document Type";
-                    Buffer."Language code" := Customer."Language Code";
-                    Buffer.Description := SalesHeader."Ending Invoice Text";
-                    Buffer.Text := StdText."Text";
-                    Buffer."Line No." := GetNextLineNo(Buffer, Buffer."No.", Buffer."customer no", Buffer.Selection);
-                    Buffer.Insert(true);
-                until StdText.Next() = 0;
+                    SubPageExtension.Init();
+                    SubPageExtension.Selection := SelectionType;
+                    SubPageExtension."No." := PostedInvoice."No.";
+                    SubPageExtension."customer no" := PostedInvoice."Sell-to Customer No.";
+                    //SubPageExtension."Document Type" := SalesHeader."Document Type";
+                    SubPageExtension."Language code" := Customer."Language Code";
+                    SubPageExtension.Description := SalesHeader."Ending Invoice Text";
+                    SubPageExtension.Text := ExtendedTextLine."Text";
+                    SubPageExtension."Line No." := GetNextLineNo(SubPageExtension, SubPageExtension."No.", SubPageExtension."customer no", SubPageExtension.Selection);
+                    SubPageExtension.Insert(true);
+                until ExtendedTextLine.Next() = 0;
         end;
     end;
 
     local procedure UpdateLastSoldPrices(PostedInvoice: Record "Sales Invoice Header")
     var
         SalesInvoiceLine: Record "Sales Invoice Line";
-        LastSoldPrice: Record "LastSoldPrice";
+        LastSoldPrice: Record Zyn_LastSoldPrice;
     begin
         SalesInvoiceLine.SetRange("Document No.", PostedInvoice."No.");
         if SalesInvoiceLine.FindSet() then
@@ -149,7 +150,7 @@ codeunit 50131 "PostedBeginText"
                 LastSoldPrice.ItemNo := SalesInvoiceLine."No.";
                 LastSoldPrice.ItemPrice := SalesInvoiceLine."Unit Price";
                 LastSoldPrice.PostingDate := PostedInvoice."Posting Date";
-                
+
                 LastSoldPrice.Insert(true);
             until SalesInvoiceLine.Next() = 0;
     end;

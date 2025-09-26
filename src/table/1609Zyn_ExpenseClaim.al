@@ -12,7 +12,7 @@ table 50184 Zyn_ExpenseClaim
         field(2; EmpID; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Employ Table"."Emp Id.";
+            TableRelation = Zyn_Employee."Emp Id.";
             trigger OnValidate()
             begin
                 if (CategoryID <> 0) and (ClaimDate <> 0D) then

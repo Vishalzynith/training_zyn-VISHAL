@@ -1,4 +1,4 @@
-enum 50141 "ProblemEnum"
+enum 50141 Zyn_ProblemEnum
 {
     value(1; "Hardware Issue")
     {

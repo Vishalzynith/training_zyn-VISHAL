@@ -1,13 +1,12 @@
-page 50374 "Employee List page"
+page 50374 Zyn_EmployeeList
 {
     Caption = 'Employee List';
     PageType = List;
-    SourceTable = "Employ Table";
+    SourceTable = Zyn_Employee;
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = false;
-    CardPageId = "Employee Card page";
-
+    CardPageId = Zyn_EmployeeCard;
     layout
     {
         area(content)
@@ -16,32 +15,24 @@ page 50374 "Employee List page"
             {
                 field("No."; Rec."Emp Id.")
                 {
-                    ApplicationArea = All;
                 }
                 field(Name; Rec.Name)
                 {
-                    ApplicationArea = All;
                 }
                 field(Department; Rec.Department)
                 {
-                    ApplicationArea = All;
                 }
-
                 field(role; Rec.role)
                 {
-                    ApplicationArea = All;
                 }
             }
-
         }
         area(FactBoxes)
         {
-            part(AssignedAssets; "Assigned Assets Factbox")
+            part(AssignedAssets; Zyn_AssignedAssetsFactbox)
             {
-                ApplicationArea = All;
                 SubPageLink = "Emp Id." = field("Emp Id.");
             }
-
         }
     }
 }

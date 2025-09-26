@@ -1,4 +1,4 @@
-codeunit 50134 "Zyn_creditmemoTextHandler"
+codeunit 50134 "Zyn_CreditMemoTextHandler"
 {
     [EventSubscriber(ObjectType::Codeunit, Codeunit::"Sales-Post", 'OnAfterSalesCrMemoHeaderInsert', '', false, false)]
     local procedure OnAfterSalesCrMemoHeaderInsert(
@@ -18,10 +18,10 @@ codeunit 50134 "Zyn_creditmemoTextHandler"
         SalesHeader: Record "Sales Header";
         PostedCreditMemo: Record "Sales Cr.Memo Header")
     var
-        SourceBuffer: Record Subpageext;
-        TargetBuffer: Record Subpageext;
+        SourceBuffer: Record Zyn_SubpageExtension;
+        TargetBuffer: Record Zyn_SubpageExtension;
         NewLineNo: Integer;
-        SelectionType: Enum BeginEndEnum;
+        SelectionType: Enum Zyn_BeginEndEnum;
     begin
         SelectionType := SelectionType::"Begin";
         repeat
@@ -56,14 +56,14 @@ codeunit 50134 "Zyn_creditmemoTextHandler"
 
     local procedure ClearText(SalesHeader: Record "Sales Header")
     var
-        SourceBuffer: Record Subpageext;
+        SourceBuffer: Record Zyn_SubpageExtension;
     begin
         SourceBuffer.SetRange("No.", SalesHeader."No.");
         SourceBuffer.SetRange("customer no", SalesHeader."Sell-to Customer No.");
         SourceBuffer.DeleteAll();
     end;
 
-    local procedure GetNextLineNo(Buffer: Record Subpageext; DocNo: Code[20]; CustNo: Code[20]; Sel: Enum BeginEndEnum): Integer
+    local procedure GetNextLineNo(Buffer: Record Zyn_SubpageExtension; DocNo: Code[20]; CustNo: Code[20]; Sel: Enum Zyn_BeginEndEnum): Integer
     var
         MaxLineNo: Integer;
     begin

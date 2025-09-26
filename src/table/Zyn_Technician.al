@@ -1,4 +1,4 @@
-table 50109 Technician
+table 50109 Zyn_Technician
 {
     DataClassification = ToBeClassified;
 
@@ -16,7 +16,7 @@ table 50109 Technician
         {
             DataClassification = CustomerContent;
         }
-        field(4; "Dept"; Enum "Department Enum")
+        field(4; "Dept"; Enum Zyn_DepartmentEnum)
         {
             DataClassification = CustomerContent;
         }
@@ -24,7 +24,7 @@ table 50109 Technician
         {
             Caption = 'Problem Count';
             FieldClass = FlowField;
-            CalcFormula = count(Problems where(Technician = field(ID)));
+            CalcFormula = count(Zyn_Problems where(Technician = field(ID)));
             Editable = false;
         }
     }

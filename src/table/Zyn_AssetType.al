@@ -1,4 +1,4 @@
-table 50169 AssetType
+table 50169 Zyn_AssetType
 {
     DataClassification = ToBeClassified;
     fields
@@ -8,7 +8,7 @@ table 50169 AssetType
             AutoIncrement = true;
             DataClassification = ToBeClassified;
         }
-        field(2; Category; Enum AssetCategory)
+        field(2; Category; Enum Zyn_AssetCategory)
         {
             DataClassification = ToBeClassified;
         }
@@ -37,18 +37,18 @@ table 50169 AssetType
 
     trigger OnDelete()
     var
-        AssetRec: Record Assets;
-        EmpAssetRec: Record EmpAssets;
+        AssetRec: Record Zyn_Assets;
+        EmpAssetRec: Record Zyn_EmpAssets;
     begin
-        
+
         AssetRec.Reset();
         AssetRec.SetRange(AssetType, Rec.Name);
         if AssetRec.FindSet() then
             repeat
-                AssetRec.Delete(true); 
+                AssetRec.Delete(true);
             until AssetRec.Next() = 0;
 
-        
+
         EmpAssetRec.Reset();
         EmpAssetRec.SetRange(AssetType, Rec.Name);
         if EmpAssetRec.FindSet() then

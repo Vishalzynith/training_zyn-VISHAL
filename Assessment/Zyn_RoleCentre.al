@@ -1,5 +1,5 @@
 //line 42-59 assessment
-page 50209 Zyn_Rolecentre
+page 50209 Zyn_RoleCentre
 {
     PageType = RoleCenter;
     ApplicationArea = All;
@@ -17,7 +17,7 @@ page 50209 Zyn_Rolecentre
             {
                 ApplicationArea = All;
             }
-            part(SubscriptionCues; "Zyn Subscription Cue Card")
+            part(SubscriptionCues; Zyn_SubscriptionCueCard)
             {
                 ApplicationArea = All;
             }
@@ -48,13 +48,13 @@ page 50209 Zyn_Rolecentre
                 {
                     Caption = 'Plans';
                     ApplicationArea = All;
-                    RunObject = page PlanList;
+                    RunObject = page Zyn_PlanList;
                 }
                 action("Subscription")
                 {
                     Caption = 'Subscription';
                     ApplicationArea = All;
-                    RunObject = page SubscriptionList;
+                    RunObject = page Zyn_SubscriptionList;
                 }
             }
             group("Assets")
@@ -65,13 +65,13 @@ page 50209 Zyn_Rolecentre
                 {
                     Caption = 'Asset List';
                     ApplicationArea = All;
-                    RunObject = page "AssetList";
+                    RunObject = page Zyn_AssetList;
                 }
                 action("Employee List")
                 {
                     Caption = 'Employee List';
                     ApplicationArea = All;
-                    RunObject = page "Employee List page";
+                    RunObject = page Zyn_EmployeeList;
                 }
 
                 action("Employee Assets")
@@ -88,13 +88,13 @@ page 50209 Zyn_Rolecentre
                 {
                     Caption = 'Leave Category';
                     ApplicationArea = All;
-                    RunObject = page "Leave Cat List page";
+                    RunObject = page Zyn_LeaveCategoryList;
                 }
                 action("Leave Request")
                 {
                     Caption = 'Leave Request';
                     ApplicationArea = All;
-                    RunObject = page "Leave Req List page";
+                    RunObject = page Zyn_LeaveRequestList;
                 }
             }
             group("Expenses")
@@ -104,19 +104,19 @@ page 50209 Zyn_Rolecentre
                 {
                     Caption = 'Expense Category';
                     ApplicationArea = All;
-                    RunObject = page ExpenseCat;
+                    RunObject = page Zyn_ExpenseCategory;
                 }
                 action("Expense List")
                 {
                     Caption = 'Expense List';
                     ApplicationArea = All;
-                    RunObject = page ExpenseList;
+                    RunObject = page Zyn_ExpenseList;
                 }
                 action("Recurring Expense")
                 {
                     Caption = 'Recurring Expense';
                     ApplicationArea = All;
-                    RunObject = page RecurringExpense;
+                    RunObject = page Zyn_RecurringExpense;
                 }
             }
             group("Budget~Income")
@@ -126,25 +126,25 @@ page 50209 Zyn_Rolecentre
                 {
                     Caption = 'Budget List';
                     ApplicationArea = All;
-                    RunObject = page BudgetList;
+                    RunObject = page Zyn_BudgetList;
                 }
                 action("Income Category")
                 {
                     Caption = 'Income Category';
                     ApplicationArea = All;
-                    RunObject = page IncomeCat;
+                    RunObject = page Zyn_IncomeCategory;
                 }
                 action("Income List")
                 {
                     Caption = 'Income List';
                     ApplicationArea = All;
-                    RunObject = page IncomeList;
+                    RunObject = page Zyn_IncomeList;
                 }
             }
         }
     }
     var
         CustomerRec: Record Customer;
-    
+
 
 }

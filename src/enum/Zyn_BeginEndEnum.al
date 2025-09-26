@@ -1,4 +1,4 @@
-enum 50155 "BeginEndEnum"
+enum 50155 Zyn_BeginEndEnum
 {
     value(0; "Begin")
     {

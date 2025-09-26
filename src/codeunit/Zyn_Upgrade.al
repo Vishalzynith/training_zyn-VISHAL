@@ -1,11 +1,11 @@
-codeunit 50135 "Upgrade Last Sold Prize"
+codeunit 50135 Zyn_UpgradeLastSoldPrice
 {
     Subtype = Upgrade;
     trigger OnUpgradePerCompany()
     var
         SalesInvoiceLine: Record "Sales Invoice Line";
         SalesInvHeader: Record "Sales Invoice Header";
-        LastSoldPrice: Record LastSoldPrice;
+        LastSoldPrice: Record Zyn_LastSoldPrice;
         UpgradeTag:Codeunit "Upgrade Tag";
     begin
         if UpgradeTag.HasUpgradeTag('LastSoldPrice2') then begin

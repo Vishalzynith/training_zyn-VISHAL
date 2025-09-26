@@ -14,31 +14,31 @@ page 50219 Zyn_PendingExpenseClaims
             {
                 field(ID; Rec.ID)
                 {
-                    ApplicationArea = All;
+                    Caption='Claim ID';
                 }
                 field(Category; Rec.Category)
                 {
-                    ApplicationArea = All;
+                    Caption='Category';
                 }
                 field(SubType; Rec.SubType)
                 {
-                    ApplicationArea = All;
+                    Caption='Sub Type';
                 }
                 field(ClaimDate; Rec.ClaimDate)
                 {
-                    ApplicationArea = All;
+                    Caption='Claim Date';
                 }
                 field(BillDate; Rec.BillDate)
                 {
-                    ApplicationArea = All;
+                    Caption='Bill Date';
                 }
                 field(Amount; Rec.Amount)
                 {
-                    ApplicationArea = All;
+                    Caption='Amount';
                 }
                 field(Status; Rec.Status)
                 {
-                    ApplicationArea = All;
+                    Caption='Status';
                 }
             }
         }
@@ -55,12 +55,12 @@ page 50219 Zyn_PendingExpenseClaims
                 Promoted = true;
                 trigger OnAction()
                 var
-                    ApproveRef: Codeunit Zyn_ExpenseClaimManagement;
+                    EmpenseClaimManagement: Codeunit Zyn_ExpenseClaimManagement;
                     Claim: Record Zyn_ExpenseClaim;
                 begin
                     CurrPage.Update(false);
                     Claim := Rec;
-                    ApproveRef.ApproveClaim(Claim);
+                    EmpenseClaimManagement.ApproveClaim(Claim);
                     Claim.Modify();
                     Message('Claim %1 approved.', Claim.ID);
                     CurrPage.Update();
@@ -73,12 +73,12 @@ page 50219 Zyn_PendingExpenseClaims
                 Promoted = true;
                 trigger OnAction()
                 var
-                    ApproveRef: Codeunit Zyn_ExpenseClaimManagement;
+                    EmpenseClaimManagement: Codeunit Zyn_ExpenseClaimManagement;
                     Claim: Record Zyn_ExpenseClaim;
                 begin
                     CurrPage.Update(false);
                     Claim := Rec;
-                    ApproveRef.RejectClaim(Claim);
+                    EmpenseClaimManagement.RejectClaim(Claim);
                     Claim.Modify();
                     Message('Claim %1 rejected.', Claim.ID);
                     CurrPage.Update();

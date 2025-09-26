@@ -1,4 +1,4 @@
-codeunit 50125 "Customer Publisher"
+codeunit 50125 Zyn_CustomerPublisher
 {
     [IntegrationEvent(false, false)]
     procedure OnAfterNewCustomerCreated(var Customer: Record Customer)

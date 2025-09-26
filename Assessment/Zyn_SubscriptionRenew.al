@@ -4,7 +4,7 @@ codeunit 50161 Zyn_SubscriptionRenewal
 
     trigger OnRun()
     var
-        SubsRecord: Record Subscription;
+        SubsRecord: Record Zyn_Subscription;
         Remainder: Date;
     begin
         Remainder := WorkDate() + 15;
@@ -21,7 +21,7 @@ codeunit 50161 Zyn_SubscriptionRenewal
             until SubsRecord.Next() = 0;
     end;
 
-    procedure SendReminder(SubsRecord: Record Subscription)
+    procedure SendReminder(SubsRecord: Record Zyn_Subscription)
     var
         Notif: Notification;
         Customer: Record Customer;

@@ -1,26 +1,35 @@
-page 50163 IndexCheck
+page 50163 Zyn_IndexCheck
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = Index;
+    SourceTable = Zyn_Index;
     //Editable=false;
-    CardPageId=50164;
-    InsertAllowed=false;
-    ModifyAllowed=false;
+    CardPageId = 50164;
+    InsertAllowed = false;
+    ModifyAllowed = false;
     layout
     {
         area(Content)
         {
             repeater(IndexCheck)
             {
-                field(Code; Rec.Code){ApplicationArea=All;}
-                field(Description;Rec.Description){ApplicationArea=All;}
-                field("Start Year";Rec."Start Year"){ ApplicationArea=All;}
-                field("End Year";Rec."End Year"){ ApplicationArea=All;}
-                field("Percentage Increase";Rec."Percentage Increase"){ApplicationArea=All;}
+                field(Code; Rec.Code)
+                {
+                }
+                field(Description; Rec.Description)
+                {
+                }
+                field("Start Year"; Rec."Start Year")
+                {
+                }
+                field("End Year"; Rec."End Year")
+                {
+                }
+                field("Percentage Increase"; Rec."Percentage Increase")
+                {
+                }
             }
         }
-       
     }
 }

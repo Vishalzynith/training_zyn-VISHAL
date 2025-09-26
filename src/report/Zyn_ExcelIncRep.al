@@ -1,4 +1,4 @@
-report 50175 IncomeFilterPage
+report 50175 Zyn_IncomeFilterPage
 {
     Caption = 'Income Export Report';
     UsageCategory = ReportsAndAnalysis;
@@ -7,7 +7,7 @@ report 50175 IncomeFilterPage
  
     dataset
     {
-        dataitem(Income; "Income")
+        dataitem(Income; Zyn_Income)
         {
  
             trigger OnPreDataItem()
@@ -56,7 +56,7 @@ report 50175 IncomeFilterPage
                     field("Category"; CategoryFilter)
                     {
                         ApplicationArea = All;
-                        TableRelation = IncomeCat.Name;
+                        TableRelation = Zyn_IncomeCategory.Name;
                     }
                 }
             }

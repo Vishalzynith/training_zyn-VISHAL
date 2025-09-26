@@ -1,4 +1,4 @@
-table 50163 Expense
+table 50163 Zyn_Expense
 {
     DataClassification = ToBeClassified;
 
@@ -26,13 +26,13 @@ table 50163 Expense
         field(5; Category; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = ExpenseCat.Name;
+            TableRelation = Zyn_ExpenseCategory.Name;
         }
 
         field(6; BudgetAmount; Decimal)
         {
             FieldClass = FlowField;
-            CalcFormula = lookup(Budget.Amount where(Category = field(Category)));
+            CalcFormula = lookup(Zyn_Budget.Amount where(Category = field(Category)));
         }
     }
 
@@ -55,8 +55,8 @@ table 50163 Expense
 
     procedure RemainingBudget(): Decimal
     var
-        BudgetRec: Record Budget;
-        ExpenseRec: Record Expense;
+        BudgetRec: Record Zyn_Budget;
+        ExpenseRec: Record Zyn_Expense;
         PeriodExpense: Decimal;
         CurrentDate: Date;
     begin

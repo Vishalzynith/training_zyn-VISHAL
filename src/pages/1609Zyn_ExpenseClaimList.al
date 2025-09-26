@@ -15,39 +15,39 @@ page 50217 Zyn_ExpenseClaimList
             {
                 field(ID; Rec.ID)
                 {
-                    ApplicationArea = All;
+                    Caption='Claim ID';
                 }
                 field(EmpID;Rec.EmpID)
                 {
-                    ApplicationArea=All;
+                    Caption='Employee ID';
                 }
                 field(CategoryID; Rec.CategoryID)
                 {
-                    ApplicationArea = All;
+                    Caption='Category ID';
                 }
                 field(SubType; Rec.SubType)
                 {
-                    ApplicationArea = All;
+                    Caption='Sub Type';
                 }
                 field(ClaimDate; Rec.ClaimDate)
                 {
-                    ApplicationArea = All;
+                    Caption='Claim Date';
                 }
                 field(BillDate; Rec.BillDate)
                 {
-                    ApplicationArea = All;
+                    Caption='Bill Date';
                 }
                 field(Amount; Rec.Amount)
                 {
-                    ApplicationArea = All;
+                    Caption='Amount';
                 }
                 field(Status; Rec.Status)
                 {
-                    ApplicationArea = All;
+                    Caption='Status';
                 }
                 field(Remarks; Rec.Remarks)
                 {
-                    ApplicationArea = All;
+                    Caption='Remarks';
                 }
             }
         }

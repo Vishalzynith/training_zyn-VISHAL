@@ -1,4 +1,4 @@
-table 50182 Budget
+table 50182 Zyn_Budget
 {
     DataClassification = ToBeClassified;
 
@@ -8,7 +8,7 @@ table 50182 Budget
         field(2; Category; Code[20])
         {
             DataClassification = ToBeClassified;
-            TableRelation = ExpenseCat.Name;
+            TableRelation = Zyn_ExpenseCategory.Name;
         }
         field(3; Amount; Decimal) { DataClassification = ToBeClassified; }
         field(4; FromDate; Date) { DataClassification = ToBeClassified; }
@@ -22,7 +22,7 @@ table 50182 Budget
     }
     procedure GetLastBudget(CategoryCode: Code[20]): Boolean
     var
-        TempRec: Record Budget;
+        TempRec: Record Zyn_Budget;
     begin
         TempRec.Reset();
         TempRec.SetRange(Category, CategoryCode);

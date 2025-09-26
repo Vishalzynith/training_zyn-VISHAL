@@ -1,4 +1,4 @@
-report 50122 "Posting Date Update"
+report 50122 Zyn_PostingDateUpdate
 {
     Caption = 'Posting Date Updation';
     UsageCategory = ReportsAndAnalysis;

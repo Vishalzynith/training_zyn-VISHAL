@@ -1,4 +1,4 @@
-table 50110 Problems
+table 50110 Zyn_Problems
 {
     DataClassification = ToBeClassified;
 
@@ -16,12 +16,12 @@ table 50110 Problems
             TableRelation = Customer."No.";
             DataClassification = CustomerContent;
         }
-        field(3; Problem; Enum "ProblemEnum")
+        field(3; Problem; Enum Zyn_ProblemEnum)
         {
             DataClassification = CustomerContent;
             Caption = 'Problem Description';
         }
-        field(4; Dept; Enum "Department Enum")
+        field(4; Dept; Enum Zyn_DepartmentEnum)
         {
             DataClassification = CustomerContent;
             Caption = 'Specify the department';
@@ -30,7 +30,7 @@ table 50110 Problems
         field(5; Technician; Code[10])
         {
             Caption = 'Technician';
-            TableRelation = Technician.ID where(Dept = field(Dept));
+            TableRelation = Zyn_Technician.ID where(Dept = field(Dept));
         }
         field(6; Description; Text[100])
         {

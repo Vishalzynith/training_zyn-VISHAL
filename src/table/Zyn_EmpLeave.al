@@ -1,22 +1,22 @@
-table 50280 "Employee Leave Log"
+table 50280 Zyn_EmployeeLeaveLog
 {
     DataClassification = ToBeClassified;
- 
- 
+
+
     fields
     {
-        field(1;"Entry No";Integer)
+        field(1; "Entry No"; Integer)
         {
-            AutoIncrement=true;
-            Editable=false;
-            DataClassification=SystemMetadata;
+            AutoIncrement = true;
+            Editable = false;
+            DataClassification = SystemMetadata;
         }
-       
+
         field(2; "Emp Id."; Code[20])
         {
             DataClassification = ToBeClassified;
         }
-        field(3; "Category"; Enum "category")
+        field(3; "Category"; Enum Zyn_Category)
         {
             DataClassification = ToBeClassified;
         }
@@ -32,15 +32,14 @@ table 50280 "Employee Leave Log"
         {
             DataClassification = ToBeClassified;
         }
-       
+
     }
- 
+
     keys
     {
-        key(PK; "Emp Id.","Entry No",Category)
+        key(PK; "Emp Id.", "Entry No", Category)
         {
             Clustered = true;
         }
     }
 }
- 

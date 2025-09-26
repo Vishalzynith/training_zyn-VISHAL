@@ -1,52 +1,50 @@
-page 50142 "Cust Customer List"
+page 50142 Zyn_CustomCustomerList
 {
     PageType = List;
     SourceTable = Customer;
     ApplicationArea = All;
     InsertAllowed = false;
     Editable = false;
-    Caption = 'Cust Customer List';
+    Caption = 'Custom Customer List';
     UsageCategory = Lists;
     layout
     {
         area(Content)
         {
             group(mainGroup)
-
             {
                 repeater(Group)
                 {
                     field("No."; Rec."No.")
                     {
-                        ApplicationArea = All;
+                        Caption='Customer No.';
                     }
                     field(Name; Rec.Name)
                     {
-                        ApplicationArea = All;
+                       Caption='Name';
                     }
                     field("Address"; Rec."Address")
                     {
-                        ApplicationArea = All;
+                       Caption='Address';
                     }
                     field("City"; Rec."City")
                     {
-                        ApplicationArea = All;
+                      Caption='City';
                     }
                     field("Phone No"; Rec."Phone No.")
                     {
-                        ApplicationArea = All;
+                       Caption='Phone No';
                     }
                     field("Post Code"; Rec."Post Code")
                     {
-                        ApplicationArea = All;
+                       Caption='Post Code';
                     }
                 }
             }
             group(SalesGroup)
             {
                 Caption = 'Sales Information';
-
-                part("Linking Sales Order"; "Linking List Part")
+                part("Linking Sales Order"; Zyn_SalesHeaderListPart)
                 {
                     ApplicationArea = All;
                     Caption = 'Linking List Part';
@@ -56,7 +54,7 @@ page 50142 "Cust Customer List"
             }
             group(LinkingGroup)
             {
-                part("Linking Sales Invoice"; "Linking List Part")
+                part("Linking Sales Invoice"; Zyn_SalesHeaderListPart)
                 {
                     ApplicationArea = All;
                     Caption = 'Linking Sales Invoice';
@@ -66,7 +64,7 @@ page 50142 "Cust Customer List"
             }
             group(LinkingCreditMemoGroup)
             {
-                part("Linking Sales Credit Memo"; "Linking List Part")
+                part("Linking Sales Credit Memo"; Zyn_SalesHeaderListPart)
                 {
                     ApplicationArea = All;
                     Caption = 'Linking Sales Credit Memo';

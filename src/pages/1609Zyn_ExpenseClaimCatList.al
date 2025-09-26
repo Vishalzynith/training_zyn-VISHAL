@@ -1,8 +1,8 @@
-page 50216 Zyn_ExpenseClaimCat
+page 50216 Zyn_ExpenseClaimCategory
 {
+    ApplicationArea = All;
     PageType = List;
     SourceTable = Zyn_ExpenseCategory;
-    ApplicationArea = All;
     UsageCategory = Lists;
     Caption = 'Expense Categories';
     layout
@@ -13,27 +13,27 @@ page 50216 Zyn_ExpenseClaimCat
             {
                 field(Code; Rec.Code)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Category Code';
                 }
-                field(EmpID;Rec.EmpID)
+                field(EmpID; Rec.EmpID)
                 {
-                    ApplicationArea=All;
+                    Caption = 'Employee ID';
                 }
                 field(Name; Rec.Name)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Category Name';
                 }
                 field(SubType; Rec.SubType)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Sub Type';
                 }
                 field(Limit; Rec.Limit)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Limit Amount';
                 }
                 field(ClaimedAmount; Rec.ClaimedAmount)
                 {
-                    ApplicationArea = All;
+                    Caption = 'Claimed Amount';
                 }
             }
         }
@@ -49,7 +49,7 @@ page 50216 Zyn_ExpenseClaimCat
                 Promoted = true;
                 PromotedCategory = New;
                 Image = New;
-                RunObject = page Zyn_ExpenseClaimCat;
+                RunObject = page Zyn_ExpenseClaimCategory;
             }
         }
     }

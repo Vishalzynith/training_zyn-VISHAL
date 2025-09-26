@@ -1,12 +1,11 @@
-page 50280 "Leave Req Card Page"
+page 50280 Zyn_LeaveRequestCard
 {
     Caption = 'Leave Request Card';
     PageType = Card;
-    SourceTable = "LeaveRequest";
+    SourceTable = Zyn_LeaveRequest;
     ApplicationArea = All;
     UsageCategory = Lists;
     Editable = true;
-
     layout
     {
         area(content)
@@ -15,23 +14,20 @@ page 50280 "Leave Req Card Page"
             {
                 field("Request No."; Rec."Request No.")
                 {
-                    ApplicationArea = All;
                 }
                 field("Emp Id."; Rec."Emp Id.")
                 {
-                    ApplicationArea = All;
-                    TableRelation = "Employ Table"."Emp Id.";
-
+                    TableRelation = Zyn_Employee."Emp Id.";
                     trigger OnValidate()
                     var
-                        LeaveCat: Record "leave Category";
-                        LeaveLog: Record "Employee Leave Log";
+                        LeaveCategory: Record Zyn_LeaveCategory;
+                        LeaveLog: Record Zyn_EmployeeLeaveLog;
                         TotalUsed: Integer;
                     begin
                         if Rec.Category = Rec.Category::None then
-                            exit; 
+                            exit;
 
-                        if LeaveCat.Get(Rec.Category) then begin
+                        if LeaveCategory.Get(Rec.Category) then begin
                             TotalUsed := 0;
                             LeaveLog.Reset();
                             LeaveLog.SetRange("Emp Id.", Rec."Emp Id.");
@@ -41,26 +37,22 @@ page 50280 "Leave Req Card Page"
                                     TotalUsed += LeaveLog."No. of Days";
                                 until LeaveLog.Next() = 0;
 
-                            Rec."Remaining Days" := LeaveCat."NO.of days allowed" - TotalUsed;
+                            Rec."Remaining Days" := LeaveCategory."NO.of days allowed" - TotalUsed;
                             CurrPage.Update();
                         end;
                     end;
                 }
-
                 field(Category; Rec.Category)
                 {
-                    ApplicationArea = All;
-
                     trigger OnValidate()
                     var
-                        LeaveCat: Record "leave Category";
-                        LeaveLog: Record "Employee Leave Log";
+                        LeaveCategory: Record Zyn_LeaveCategory;
+                        LeaveLog: Record Zyn_EmployeeLeaveLog;
                         TotalUsed: Integer;
                     begin
                         if Rec."Emp Id." = '' then
-                            exit; 
-
-                        if LeaveCat.Get(Rec.Category) then begin
+                            exit;
+                        if LeaveCategory.Get(Rec.Category) then begin
                             TotalUsed := 0;
                             LeaveLog.Reset();
                             LeaveLog.SetRange("Emp Id.", Rec."Emp Id.");
@@ -70,16 +62,13 @@ page 50280 "Leave Req Card Page"
                                     TotalUsed += LeaveLog."No. of Days";
                                 until LeaveLog.Next() = 0;
 
-                            Rec."Remaining Days" := LeaveCat."NO.of days allowed" - TotalUsed;
+                            Rec."Remaining Days" := LeaveCategory."NO.of days allowed" - TotalUsed;
                             CurrPage.Update();
                         end;
                     end;
                 }
-
                 field("From Date"; Rec."From Date")
                 {
-                    ApplicationArea = All;
-
                     trigger OnValidate()
                     begin
                         if (Rec."From Date" <> 0D) and (Rec."To Date" <> 0D) then
@@ -88,11 +77,8 @@ page 50280 "Leave Req Card Page"
                         CurrPage.Update();
                     end;
                 }
-
                 field("To Date"; Rec."To Date")
                 {
-                    ApplicationArea = All;
-
                     trigger OnValidate()
                     begin
                         if (Rec."From Date" <> 0D) and (Rec."To Date" <> 0D) then
@@ -101,25 +87,20 @@ page 50280 "Leave Req Card Page"
                         CurrPage.Update();
                     end;
                 }
-
                 field("No.of days"; Rec."No.of days")
                 {
-                    ApplicationArea = All;
-                    Editable = false; 
+                    Editable = false;
                 }
                 field("Remaining Days"; Rec."Remaining Days")
                 {
-                    ApplicationArea = All;
-                    Editable = false; 
+                    Editable = false;
                 }
                 field(Status; Rec.Status)
                 {
-                    ApplicationArea = All;
                 }
             }
         }
     }
-
     actions
     {
         area(Processing)
@@ -129,15 +110,15 @@ page 50280 "Leave Req Card Page"
                 Caption = 'Approve Leave';
                 Image = Approve;
                 ApplicationArea = All;
-
                 trigger OnAction()
                 var
-                    LeaveMgt: Codeunit "Leave Management";
+                    LeaveManagement: Codeunit Zyn_LeaveManagement;
                 begin
-                    LeaveMgt.ApproveLeaveRequest(Rec);
-                    Message('Leave Request %1 has been approved and logged.', Rec."Request No.");
+                    LeaveManagement.ApproveLeaveRequest(Rec);
+                    Message(ApproveLeaveMsg, Rec."Request No.");
                 end;
             }
         }
     }
+    var ApproveLeaveMsg: Label 'Leave Request %1 has been approved and logged.';
 }

@@ -1,4 +1,4 @@
-table 50173 IncomeCat
+table 50173 Zyn_IncomeCategory
 {
     DataClassification = ToBeClassified;
 

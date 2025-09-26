@@ -1,4 +1,4 @@
-table 50123 "Modify Log"
+table 50123 Zyn_ModifyLog
 {
     DataClassification = SystemMetadata;
 

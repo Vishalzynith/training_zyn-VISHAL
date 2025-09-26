@@ -1,10 +1,10 @@
-codeunit 50215 "Subscription Recurring Billing"
+codeunit 50215 Zyn_SubscriptionRecBilling
 {
     //SingleInstance = true;
 
     var
-        SubscriptionRec: Record Subscription;
-        PlanRec: Record Plans;
+        SubscriptionRec: Record Zyn_Subscription;
+        PlanRec: Record Zyn_Plans;
         SalesHeader: Record "Sales Header";
         SalesLine: Record "Sales Line";
         WorkDt: Date;
@@ -14,17 +14,17 @@ codeunit 50215 "Subscription Recurring Billing"
     begin
         WorkDt := System.WorkDate();
         SubscriptionRec.Reset();
-        SubscriptionRec.SetRange("NextBilling", 0D, WorkDt); 
+        SubscriptionRec.SetRange("NextBilling", 0D, WorkDt);
         if SubscriptionRec.FindSet() then
             repeat
                 if (SubscriptionRec.Status <> SubscriptionRec.Status::Expired) and
                    ((SubscriptionRec.EndDate = 0D) or (SubscriptionRec.EndDate > WorkDt)) then begin
 
-                    
+
                     if not PlanRec.Get(SubscriptionRec.PlanID) then
                         continue;
 
-                    
+
                     NewInvNo := GetNextInvoiceNo();
 
                     SalesHeader.Init();
@@ -34,10 +34,10 @@ codeunit 50215 "Subscription Recurring Billing"
                     SalesHeader.Validate("Order Date", WorkDt);
                     SalesHeader.Validate("Posting Date", WorkDt);
                     SalesHeader."Subscription ID" := SubscriptionRec.SubID;
-                    
+
                     SalesHeader.Insert();
 
-                    
+
                     SalesLine.Init();
                     SalesLine."Document Type" := SalesLine."Document Type"::Invoice;
                     SalesLine."Document No." := SalesHeader."No.";
@@ -62,7 +62,7 @@ codeunit 50215 "Subscription Recurring Billing"
         NextNum: Integer;
         Suffix: Text[10];
     begin
-        
+
         LastHdr.Reset();
         LastHdr.SetRange("Document Type", LastHdr."Document Type"::Invoice);
         if LastHdr.FindLast() then begin
@@ -77,7 +77,7 @@ codeunit 50215 "Subscription Recurring Billing"
         end else
             NextNum := 1;
 
-        
+
         if NextNum < 10 then
             Suffix := '00' + Format(NextNum)
         else if NextNum < 100 then

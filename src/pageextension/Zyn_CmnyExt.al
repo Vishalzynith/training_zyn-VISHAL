@@ -1,4 +1,4 @@
-pageextension 50119 CompanyListExt extends Companies
+pageextension 50119 Zyn_CompanyListExt extends Companies
 {
     actions
     {
@@ -8,7 +8,7 @@ pageextension 50119 CompanyListExt extends Companies
             {
                 ApplicationArea = All;
                 Caption = 'Update Fields';
-                RunObject = page "UpdatePage";
+                RunObject = page Zyn_UpdatePage;
             }
         }
     }

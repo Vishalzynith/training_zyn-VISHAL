@@ -1,10 +1,10 @@
 namespace Microsoft.Purchases.Document;
-enum 50139 "Approval Status"
+enum 50139 Zyn_ApprovalStatus
 {
-    // value(0; "Open")
-    // {
-    //     Caption = 'Open';
-    // }
+    value(0; "Open")
+    {
+        Caption = 'Open';
+    }
     value(1; "Pending")
     {
         Caption = 'Pending';
